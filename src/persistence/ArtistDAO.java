@@ -44,9 +44,10 @@ public class ArtistDAO {
             
             rs = st.executeQuery();
             while (rs.next()){
-                Artist a = new Artist(rs.getString("name"));
-                a.setDescription((rs.getString("description")));
-                a.setArtistID(rs.getLong("id"));
+                Artist a = new Artist(rs.getLong("id"),null,null,null,null,null);
+                a.setName(rs.getString("name"));
+                a.setBio((rs.getString("description")));
+              
                 result.put(0,a);
                 
                 sql = "select e.* from event e,billing b where b.event_id = e.id and b.artist_id=" + rs.getString("id");
@@ -55,12 +56,7 @@ public class ArtistDAO {
                 
                 Vector eventlist = new Vector();
                 while (eventrs.next()){
-                    Event e = new Event(eventrs.getString("name"),null,null);
-                     Calendar cal = Calendar.getInstance();
-                     cal.setTime(eventrs.getDate("start_time"));
-                     e.setStartTime(cal);
-                     cal.setTime(eventrs.getDate("end_time"));
-                     e.setEndTime(cal);
+                    Event e = new Event(eventrs.getLong("id"),eventrs.getString("name"),eventrs.getDate("start_time"),eventrs.getDate("end_time"));                                
                      eventlist.add(e);
                 }
                 
@@ -72,7 +68,7 @@ public class ArtistDAO {
                 tourrs = tourst.executeQuery();
                 Vector tourlist = new Vector();
                 while (tourrs.next()){
-                   Tour t = new Tour(tourrs.getString("name")); 
+                   Tour t = new Tour(tourrs.getLong("id"),tourrs.getString("name"),null); 
                    tourlist.add(t);
                 }
                 result.put(2, tourlist);
@@ -223,7 +219,7 @@ public class ArtistDAO {
                con = getConn();
             PreparedStatement ps = con.prepareStatement(SQLCommand);   
             ps.setString(1,a.getName() );   
-            ps.setString(2,a.getDescription());
+            ps.setString(2,a.getBio());
            
                  
             ps.executeUpdate(); 
@@ -245,8 +241,8 @@ public class ArtistDAO {
                con = getConn();
             PreparedStatement ps = con.prepareStatement(SQLCommand);   
             ps.setString(1,a.getName() );   
-            ps.setString(2,a.getDescription());
-            ps.setLong(3, a.getArtistID());
+            ps.setString(2,a.getBio());
+            ps.setLong(3, a.getId());
                  
             ps.executeUpdate(); 
          }

@@ -41,7 +41,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
          this.jTextCreated.setText(sdf.format(c.getCreated()));
          this.jTextPostCode.setText(c.getPostcode());
          
-          customerID = c.getCustomerID();
+          customerID = c.getId();
          
          String[] colNames = {"Created" , "Created Confirmed","Cancelled","Cancelled Confirmed"};
          java.util.Date[][] data  = new java.util.Date[c.getBookings().size()][4];
@@ -710,7 +710,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
          c.setCountry(this.jComboBoxCountry.getSelectedItem().toString());
          c.setCounty(this.jTextCounty.getText());
          c.setPostcode(this.jTextPostCode.getText());
-         c.setCustomerID(this.customerID);
+         c.setId(this.customerID);
          
          
          String result = "";
@@ -820,12 +820,12 @@ public class CustomerJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
             ArrayList booklist = new ArrayList<Booking>();
         String[] arr = this.jComboBoxEvent.getSelectedItem().toString().split(",");
-        Event e = new Event(null,null,null);
-        e.setEventID(Long.parseLong(arr[0]));
+        Event e = new Event(Long.parseLong(arr[0]),null,null,null);
+        e.setId(Long.parseLong(arr[0]));
         booklist.add(new Booking(e));
         Customer c = new Customer();
         c.setBookings(booklist);
-        c.setCustomerID(this.customerID);
+        c.setId(this.customerID);
         persistence.BookingDAO dao = new persistence.BookingDAO();
         dao.insertBooking(c);
         this.jButtonAddBooking.setEnabled(true);

@@ -2,7 +2,8 @@ package com.prcse.datamodel;
 
 import java.util.ArrayList;
 
-public class SeatingArea {
+
+public class SeatingArea extends PersistantObject {
 
 	private ArrayList<Booking> booked;
 	private String name;
@@ -67,5 +68,11 @@ public class SeatingArea {
 
 	public void setPlan(SeatingPlan plan) {
 		this.plan = plan;
+	}
+
+	@Override
+	public String toString() {
+		return "SeatingArea [name=" + name + ", capacity=" + capacity
+				+ ", plan=" + plan + "]";
 	}
 }

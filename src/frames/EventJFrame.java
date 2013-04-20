@@ -74,17 +74,17 @@ public class EventJFrame extends javax.swing.JFrame {
         this.jTextName.setText(par.getName());
         this.dateChooserStartDate.setText(sdf.format(par.getStartTime().getTime()));
         this.dateChooserEndDate.setText(sdf.format(par.getEndTime().getTime()));
-        String venueVal = par.getVenue().getVenueID() + "," + par.getVenue().getName();
+        String venueVal = par.getVenue().getId() + "," + par.getVenue().getName();
         this.jComboBoxVenue.setSelectedItem(venueVal);
-        this.eventID = par.getEventID();
-        this.venueID = par.getVenue().getVenueID();
+        this.eventID = par.getId();
+        this.venueID = par.getVenue().getId();
         
         
          String[] colNames = {"Artist,Tour" , "lineup order"};
          String[][] data  = new String[par.getBillings().size()][2];
          for (int i =0 ; i < par.getBillings().size();i++ ){
              Billing b = (Billing) par.getBillings().get(i);
-             data[i][0] = b.getBilling().getName();
+             data[i][0] = b.getArtist().getName();
              data[i][1] = String.valueOf(b.getLineupOrder());
              
                     
@@ -614,13 +614,13 @@ public class EventJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         Venue v = new Venue(null,0,0);
         String[] arr = this.jComboBoxVenue.getSelectedItem().toString().split(",");
-        v.setVenueID(Long.parseLong(arr[0]));
+        v.setId(Long.parseLong(arr[0]));
         v.setName(arr[1]);
      
       
                  persistence.EventDAO eventdao = new persistence.EventDAO();
                  String result2="";
-                 Event currentevent = new Event(this.jTextName.getText(),this.dateChooserStartDate.getSelectedDate(),this.dateChooserEndDate.getSelectedDate());
+                 Event currentevent = new Event(0l,this.jTextName.getText(),this.dateChooserStartDate.getSelectedDate().getTime(),this.dateChooserEndDate.getSelectedDate().getTime());
                   if(process.equalsIgnoreCase("add")) 
                   {   
                      persistence.VenueDAO dao = new persistence.VenueDAO();
@@ -629,7 +629,7 @@ public class EventJFrame extends javax.swing.JFrame {
                   }
                      if(process.equalsIgnoreCase("edit")) 
                      {
-                         currentevent.setEventID(this.eventID);
+                         currentevent.setId(this.eventID);
                          result2 = eventdao.updateEvent(currentevent );
                      }
                   
@@ -697,17 +697,17 @@ public class EventJFrame extends javax.swing.JFrame {
            
         String[] artistArr = this.jComboBoxArtist.getSelectedItem().toString().split(",");
         String[] tourArr = this.jComboBoxTour.getSelectedItem().toString().split(",");
-        Event e = new Event(null,null,null);
-        e.setEventID(this.eventID);
+        Event e = new Event(this.eventID,null,null,null);
+        e.setId(this.eventID);
         
        
       
         
-        Artist a = new Artist(null);
-        a.setArtistID(Long.parseLong(artistArr[0]));
-         Tour t = new Tour(null,a);
-        t.setTourID(Long.parseLong(tourArr[0]));
-          Billing b = new Billing(a);
+        Artist a = new Artist(Long.parseLong(artistArr[0]),null,null,null,null,null);
+        a.setId(Long.parseLong(artistArr[0]));
+         Tour t = new Tour(Long.parseLong(tourArr[0]),null,a);
+        t.setId(Long.parseLong(tourArr[0]));
+          Billing b = new Billing(0l,a,null,0);
           b.setLineupOrder(Integer.parseInt(this.jTextFieldLineup.getText()));
         t.addBill(b);
         

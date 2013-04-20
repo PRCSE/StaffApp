@@ -2,9 +2,7 @@ package com.prcse.datamodel;
 
 
 import java.util.ArrayList;
-import java.util.Date;
-import com.prcse.observer.IObserver;
-import com.prcse.observer.ISubject;
+import java.util.Date;
 
 /* Dev Notes
  * 
@@ -12,7 +10,7 @@ import com.prcse.observer.ISubject;
  * 
  */
 
-public class Booking implements ISubject, IObserver {
+public class Booking extends PersistantObject {
     
     private ArrayList<SeatingArea> seats;
 	private Event event = null;
@@ -21,8 +19,6 @@ public class Booking implements ISubject, IObserver {
     private Date cancelRequest;
     private Date cancelled;
     private Date cancelConfirmed;
-    
-    private ArrayList<IObserver> observers = null;
 
     public Booking(Event event)
     {
@@ -90,7 +86,6 @@ public class Booking implements ISubject, IObserver {
 	public void setEvent(Event event) 
 	{
 		this.event = event;
-		notifyObservers();
 	}
 
 	public Date getCreated() 
@@ -101,7 +96,6 @@ public class Booking implements ISubject, IObserver {
 	public void setCreated(Date created) 
 	{
 		this.created = created;
-		notifyObservers();
 	}
 
 	public Date getConfirmed() 
@@ -112,7 +106,6 @@ public class Booking implements ISubject, IObserver {
 	public void setConfirmed(Date confirmed) 
 	{
 		this.confirmed = confirmed;
-		notifyObservers();
 	}
 
 	public Date getCancelRequest() 
@@ -123,7 +116,6 @@ public class Booking implements ISubject, IObserver {
 	public void setCancelRequest(Date cancelRequest) 
 	{
 		this.cancelRequest = cancelRequest;
-		notifyObservers();
 	}
 
 	public Date getCancelled() 
@@ -134,7 +126,6 @@ public class Booking implements ISubject, IObserver {
 	public void setCancelled(Date cancelled) 
 	{
 		this.cancelled = cancelled;
-		notifyObservers();
 	}
 
 	public Date getCancelConfirmed() 
@@ -145,65 +136,10 @@ public class Booking implements ISubject, IObserver {
 	public void setCancelConfirmed(Date cancelConfirmed) 
 	{
 		this.cancelConfirmed = cancelConfirmed;
-		notifyObservers();
-	}
-
-
-	@Override
-	public void update() 
-	{
-		// notify all observers (domino effect caused)
-		this.notifyObservers();
 	}
 
 	@Override
-	public Boolean registerObserver(IObserver o) 
-	{
-		Boolean blnAdded = false;
-        // Check observer exists
-        if (o != null) 
-        {
-            // check if the ArrayList of observers has been initilised
-            if (this.observers == null) 
-            {
-                this.observers = new ArrayList<>();
-            }
-            // Add the observer to the list and true the blnAdded variable
-            blnAdded = this.observers.add(o);
-        }
-        return blnAdded;
+	public String toString() {
+		return "Booking [seats=" + seats + ", event=" + event + "]";
 	}
-
-	@Override
-	public Boolean removeObserver(IObserver o) 
-	{
-		Boolean blnRemoved = false;
-        // Check observer exists
-        if (o != null) 
-        {
-            // check the array has been initilised
-            if (this.observers != null) 
-            {
-                // If it has try to remove observer passed
-                blnRemoved = this.observers.remove(o);
-            }
-        }
-        return blnRemoved;
-	}
-
-	@Override
-	public void notifyObservers() 
-	{
-		// check the list of observables is valid
-        if (this.observers != null && this.observers.size() > 0) 
-        {
-            // loop through each observer in ArrayList
-            for (IObserver currentObserver : this.observers) 
-            {
-                // call update for current observer
-                currentObserver.update();
-            }
-        }
-	}
-	
 }

@@ -46,28 +46,24 @@ public class VenueDAO {
             
             rs = st.executeQuery();
             while (rs.next()){
-                result = new Venue(rs.getString("name"));
+                result = new Venue(rs.getLong("id"),rs.getString("name"));
                 result.setDescription((rs.getString("description")));
                 result.setAddr1(rs.getString("line_1"));
                 result.setPostcode(rs.getString("postcode"));
-                result.setVenueID(rs.getLong("id"));
+                
                 
                 sql = "select e.* from event e,seating_plan s where s.venue_id=" + rs.getString("id");
                 sql+= " and e.seating_plan = s.id";
                 eventst = con.prepareCall(sql);
                 eventrs = eventst.executeQuery();
                 
-                 
+                   ArrayList<Event> eventList = new ArrayList<Event>();
                 while (eventrs.next()){
-                    Event e = new Event(eventrs.getString("name"),null,null);
-                     Calendar cal = Calendar.getInstance();
-                     cal.setTime(eventrs.getDate("start_time"));
-                     e.setStartTime(cal);
-                     cal.setTime(eventrs.getDate("end_time"));
-                     e.setEndTime(cal);
-                     result.addEvent(e);
+                    Event e = new Event(eventrs.getLong("id"),eventrs.getString("name"),eventrs.getDate("start_time"),eventrs.getDate("end_time"));
+                   
+                     eventList.add(e);
                 } 
-                
+                result.setEventList(eventList);
                 
            
           
@@ -203,8 +199,8 @@ public class VenueDAO {
              rs = st.executeQuery();
              while (rs.next()){
                  System.out.println("inside while in getlast seating plan");
-                  result = new SeatingPlan(null,null);
-                  result.setSeatingPlanID(rs.getLong(1));
+                  result = new SeatingPlan(rs.getLong(1),null,null);
+                  
                  
                 
              }
@@ -255,7 +251,7 @@ public class VenueDAO {
                con = getConn();
             PreparedStatement ps = con.prepareStatement(SQLCommand);
             ps.setString(1, v.getName());
-            ps.setLong(2,v.getVenueID());
+            ps.setLong(2,v.getId());
             
     
            
@@ -307,7 +303,7 @@ public class VenueDAO {
             ps.setString(2,v.getAddr1());
             ps.setString(3,v.getPostcode());
             ps.setString(4,v.getDescription());
-            ps.setLong(5, v.getVenueID());
+            ps.setLong(5, v.getId());
     
            
                  

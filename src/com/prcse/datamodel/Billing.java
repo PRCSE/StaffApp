@@ -1,34 +1,42 @@
 package com.prcse.datamodel;
 
-import java.util.ArrayList;
-
-import com.prcse.observer.IObserver;
-import com.prcse.observer.ISubject;
-
 /*
  * Dev Note: Billing order (lineup_order) number for each artist in an event need to be exclusive?
  */
-public class Billing implements ISubject, IObserver{
+public class Billing extends PersistantObject {
 	
-	Artist billing;
+	private Artist artist;
+	private Event event;
 	int lineupOrder;
-        
-       
 	
-	private ArrayList<IObserver> observers = null;
-	
-	public Billing(Artist artist)
+	public Billing(long id, Artist artist, Event event, int lineupOrder)
 	{
-		this.billing = artist;
+		this.id = id;
+		this.artist = artist;
+		this.event = event;
+		this.lineupOrder = lineupOrder;
 	}
 	
-	public Artist getBilling() {
-		return billing;
+
+	public Artist getArtist() {
+		return artist;
 	}
 
-	public void setBilling(Artist artist) {
-		this.billing = artist;
+
+	public void setArtist(Artist artist) {
+		this.artist = artist;
 	}
+
+
+	public Event getEvent() {
+		return event;
+	}
+
+
+	public void setEvent(Event event) {
+		this.event = event;
+	}
+
 
 	public int getLineupOrder() {
 		return lineupOrder;
@@ -38,62 +46,10 @@ public class Billing implements ISubject, IObserver{
 		this.lineupOrder = lineupOrder;
 	}
 
-	@Override
-	public void update() 
-	{
-		// notify all observers (domino effect caused)
-		this.notifyObservers();
-	}
 
 	@Override
-	public Boolean registerObserver(IObserver o) 
-	{
-		Boolean blnAdded = false;
-        // Check observer exists
-        if (o != null) 
-        {
-            // check if the ArrayList of observers has been initilised
-            if (this.observers == null) 
-            {
-                this.observers = new ArrayList<>();
-            }
-            // Add the observer to the list and true the blnAdded variable
-            blnAdded = this.observers.add(o);
-        }
-        return blnAdded;
+	public String toString() {
+		return "Billing [artist=" + artist + ", event=" + event + "]";
 	}
-
-	@Override
-	public Boolean removeObserver(IObserver o) 
-	{
-		Boolean blnRemoved = false;
-        // Check observer exists
-        if (o != null) 
-        {
-            // check the array has been initilised
-            if (this.observers != null) 
-            {
-                // If it has try to remove observer passed
-                blnRemoved = this.observers.remove(o);
-            }
-        }
-        return blnRemoved;
-	}
-
-	@Override
-	public void notifyObservers() 
-	{
-		// check the list of observables is valid
-        if (this.observers != null && this.observers.size() > 0) 
-        {
-            // loop through each observer in ArrayList
-            for (IObserver currentObserver : this.observers) 
-            {
-                // call update for current observer
-                currentObserver.update();
-            }
-        }
-	}
-	
 	
 }

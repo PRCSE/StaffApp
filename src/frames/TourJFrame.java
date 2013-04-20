@@ -39,9 +39,9 @@ public class TourJFrame extends javax.swing.JFrame {
             return;
         
         this.jTextField1.setText(par.getName());
-       String art = par.getArtist().getArtistID() + "," + par.getArtist().getName();
+       String art = par.getArtist().getId() + "," + par.getArtist().getName();
        this.jComboBoxArtist.setSelectedItem(art);
-       this.tourID = par.getTourID();
+       this.tourID = par.getId();
        
         
     }
@@ -554,14 +554,16 @@ public class TourJFrame extends javax.swing.JFrame {
     private void jButtonSaveTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveTourActionPerformed
         // TODO add your handling code here:
         
-        Tour t = new Tour(null);
+        
          persistence.TourDAO dao  = new persistence.TourDAO();
-         t.setName(this.jTextField1.getText());
-         t.setTourID(this.tourID);
+       
+        
          String arr[]= this.jComboBoxArtist.getSelectedItem().toString().split(",");
-         Artist a = new Artist(null);
-         a.setArtistID(Long.parseLong(arr[0]));
-         t.setArtist(a);
+         Artist a = new Artist(0l,null,null,null,null,null);
+         a.setId(Long.parseLong(arr[0]));
+        
+         
+         Tour t = new Tour(this.tourID,this.jTextField1.getText(),a);
          
          
          String result = "";
@@ -637,16 +639,15 @@ public class TourJFrame extends javax.swing.JFrame {
               
           String[] artistArr = this.jComboBoxArtist.getSelectedItem().toString().split(",");
           String[] eventArr = this.jComboBoxEvent.getSelectedItem().toString().split(",");
-        Event e = new Event(null,null,null);
-        e.setEventID(Long.parseLong(eventArr[0]));
+        Event e = new Event(Long.parseLong(eventArr[0]),null,null,null);
+        
           
-        Artist a = new Artist(null);
-        a.setArtistID(Long.parseLong(artistArr[0]));
-         Tour t = new Tour(null,a);
-        t.setTourID(this.tourID);
-          Billing b = new Billing(a);
-          b.setLineupOrder(1);
-        t.addBill(b);
+        Artist a = new Artist(Long.parseLong(artistArr[0]),null,null,null,null,null);
+      
+         Tour t = new Tour(this.tourID,null,a);
+      
+          Billing b = new Billing(0l,a,null,1);
+            t.addBill(b);
         
    
         persistence.EventDAO dao = new persistence.EventDAO();

@@ -50,7 +50,7 @@ public class CustomerDAO {
                  result.setCountry(rs.getString("COUNTRY"));
                  result.setCreated(rs.getDate("created"));
                  result.setPostcode(rs.getString("POSTCODE"));
-                 result.setCustomerID(rs.getLong("id"));
+                 result.setId(rs.getLong("id"));
                  
                   bookst = con.prepareCall("select * from booking where customer_id=" + rs.getString("id"));
                  bookrs = bookst.executeQuery();
@@ -330,7 +330,7 @@ public class CustomerDAO {
             ps.setString(9,c.getCounty());
             ps.setString(10, c.getPostcode());
             ps.setString(11, c.getCountry());
-            ps.setLong(12, c.getCustomerID());
+            ps.setLong(12, c.getId());
                  
             ps.executeUpdate(); 
          }

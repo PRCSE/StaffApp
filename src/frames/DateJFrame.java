@@ -453,9 +453,8 @@ public class DateJFrame extends javax.swing.JFrame {
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
           // TODO add your handling code here:
        String name = this.jTextName.getText();
-       Calendar startDate = this.dateChooserFrom.getSelectedDate();
-        Calendar endDate = this.dateChooserTo.getSelectedDate();
-        Event e = new Event(name,startDate,endDate);
+        
+        Event e = new Event(0l,name,this.dateChooserFrom.getSelectedDate().getTime(),this.dateChooserTo.getSelectedDate().getTime());
         EventDAO dao = new EventDAO();
         dao.indertEvent(e);
          this.jPanel1.setVisible(false);
@@ -551,9 +550,9 @@ public class DateJFrame extends javax.swing.JFrame {
          String custVal = this.jComboBoxCustomer.getSelectedItem().toString();
          String custArr[] = custVal.split(",");
          Customer c = new Customer();
-         c.setCustomerID(Long.parseLong(custArr[0]));
-         Event e = new Event(null,null,null);
-         e.setEventID(Long.parseLong(arr[0]));
+         c.setId(Long.parseLong(custArr[0]));
+         Event e = new Event(Long.parseLong(arr[0]),null,null,null);
+         e.setId(Long.parseLong(arr[0]));
          ArrayList<Booking> list = new ArrayList<Booking>();
          Booking b = new Booking(e);
          list.add(b);

@@ -2,102 +2,75 @@ package com.prcse.datamodel;
 
 import java.util.ArrayList;
 
-import com.prcse.observer.IObserver;
-import com.prcse.observer.ISubject;
 
 
-public class Venue implements ISubject, IObserver{
+public class Venue extends PersistantObject {
 	
-	//ArrayList<SeatingPlan> seatingPlan;
-	ArrayList<Event> events;
-	String name;
-	double geoLat;
-	double geoLong;
+	private ArrayList<SeatingPlan> seatingPlan;
+	private String name;
+	private double geoLat;
+	private double geoLong;
+	private String thumb;
+	private String postcode;
         
-        //added by phill
-        String description;
-        String addr1;
-        String postcode;
-        long venueID;
+        private String description;
+        private String addr1;
+        private ArrayList<Event> eventList = new ArrayList<Event>();
         
-          public void setVenueID(long venueID){
-            this.venueID = venueID;
+        public ArrayList<Event> getEventList(){
+            return this.eventList;
         }
         
-        public long getVenueID(){
-            return this.venueID;
+        public void setEventList(ArrayList<Event> eventList){
+            this.eventList = eventList;
         }
         
+       
+        public String getDescription(){
+            return this.description;
+        }
         public void setDescription(String description){
             this.description = description;
         }
         
-        public String getDescription(){
-            return this.description;
+          public String getAddr1(){
+            return this.addr1;
         }
-        
-          public void setAddr1(String addr1){
+        public void setAddr1(String addr1){
             this.addr1 = addr1;
         }
         
-        public String getAddr1(){
-            return this.addr1;
-        }
-        
-             public void setPostcode(String postcode){
-            this.postcode = postcode;
-        }
-        
-        public String getPostcode(){
-            return this.postcode;
-        }
-        //end added by phill
-	
-	private ArrayList<IObserver> observers = null;
 
-	public Venue(String name)
+	public Venue(long id, String name)
 	{
-		this.events = new ArrayList<Event>();
+		this.seatingPlan = new ArrayList<SeatingPlan>();
 		this.name = name;
+		this.id = id;
 		this.geoLat = 0;
 		this.geoLong = 0;
 	}
 	
 	public Venue(String name, double geoLat, double geoLong)
 	{
-		this.events = new ArrayList<Event>();
+		this.seatingPlan = new ArrayList<SeatingPlan>();
 		this.name = name;
 		this.geoLat = geoLat;
 		this.geoLong = geoLong;
 	}
 	
-	public void addEvent(Event newEvent)
+	public void addSeatingPlan(SeatingPlan seatingPlan)
 	{
-		if (this.events == null)
-		{
-			this.events = new ArrayList<Event>();
-		}
-		this.events.add(newEvent);
-		
-		newEvent.registerObserver(this);
-		this.notifyObservers();
+		this.seatingPlan.add(seatingPlan);
 	}
 	
-	public void removeEventAt(int index)
+	public void removeSeatingPlan(SeatingPlan seatingPlan)
 	{
-		this.events.remove(index);
-		this.notifyObservers();
-	}
-	
-	public void removeEvent(Event event)
-	{
-		this.events.remove(event);
-		this.notifyObservers();
+		this.seatingPlan.remove(seatingPlan);
 	}
 
-	public ArrayList<Event> getEvents() 
+	public ArrayList<SeatingPlan> getSeatingPlan() 
 	{
-		return events;
+		return seatingPlan;
 	}
 
 	public String getName() 
@@ -108,7 +81,6 @@ public class Venue implements ISubject, IObserver{
 	public void setName(String name) 
 	{
 		this.name = name;
-		this.notifyObservers();
 	}
 
 	public double getGeoLat() 
@@ -119,7 +91,6 @@ public class Venue implements ISubject, IObserver{
 	public void setGeoLat(double geoLat) 
 	{
 		this.geoLat = geoLat;
-		this.notifyObservers();
 	}
 
 	public double getGeoLong() 
@@ -130,65 +101,27 @@ public class Venue implements ISubject, IObserver{
 	public void setGeoLong(double geoLong) 
 	{
 		this.geoLong = geoLong;
-		this.notifyObservers();
+	}
+
+	public String getThumb() {
+		return thumb;
+	}
+
+	public void setThumb(String thumb) {
+		this.thumb = thumb;
+	}
+
+	public String getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
 	}
 
 	@Override
-	public void update() 
-	{
-		// notify all observers (domino effect caused)
-		this.notifyObservers();
+	public String toString() {
+		return "Venue [name=" + name + ", geoLat=" + geoLat + ", geoLong="
+				+ geoLong + ", postcode=" + postcode + "]";
 	}
-
-	@Override
-	public Boolean registerObserver(IObserver o) 
-	{
-		Boolean blnAdded = false;
-        // Check observer exists
-        if (o != null) 
-        {
-            // check if the ArrayList of observers has been initilised
-            if (this.observers == null) 
-            {
-                this.observers = new ArrayList<>();
-            }
-            // Add the observer to the list and true the blnAdded variable
-            blnAdded = this.observers.add(o);
-        }
-        return blnAdded;
-	}
-
-	@Override
-	public Boolean removeObserver(IObserver o) 
-	{
-		Boolean blnRemoved = false;
-        // Check observer exists
-        if (o != null) 
-        {
-            // check the array has been initilised
-            if (this.observers != null) 
-            {
-                // If it has try to remove observer passed
-                blnRemoved = this.observers.remove(o);
-            }
-        }
-        return blnRemoved;
-	}
-
-	@Override
-	public void notifyObservers() 
-	{
-		// check the list of observables is valid
-        if (this.observers != null && this.observers.size() > 0) 
-        {
-            // loop through each observer in ArrayList
-            for (IObserver currentObserver : this.observers) 
-            {
-                // call update for current observer
-                currentObserver.update();
-            }
-        }
-	}
-	
-	
 }

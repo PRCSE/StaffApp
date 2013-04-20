@@ -29,13 +29,13 @@ public class VenueJFrame extends javax.swing.JFrame {
         this.jTextAddress1.setText(v.getAddr1());
         this.jTextPostCode.setText(v.getPostcode());  
         this.jTextDesc.setText(v.getDescription());
-        this.venueID = v.getVenueID();
+        this.venueID = v.getId();
          
                 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
          String[] colNames = {"Name" , "Start Time","End Time"};
-          String[][] data  = new  String[v.getEvents().size()][3];
-         for (int i =0 ; i < v.getEvents().size();i++ ){
-             Event e = v.getEvents().get(i);
+          String[][] data  = new  String[v.getEventList().size()][3];
+         for (int i =0 ; i < v.getEventList().size();i++ ){
+             Event e = v.getEventList().get(i);
              data[i][0] = e.getName();
              data[i][1] = sdf.format(e.getStartTime().getTime());
              data[i][2] = sdf.format(e.getEndTime().getTime()); 
@@ -531,14 +531,14 @@ public class VenueJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
            // TODO add your handling code here:
          // TODO add your handling code here:
-        Venue v = new  Venue(null);
+        Venue v = new  Venue(this.venueID,this.jTextName.getText());
          persistence.VenueDAO dao  = new persistence.VenueDAO();
          
          v.setName(this.jTextName.getText());
          v.setDescription(jTextDesc.getText());
          v.setAddr1(jTextAddress1.getText());
          v.setPostcode(jTextPostCode.getText());
-         v.setVenueID(this.venueID);
+         v.setId(this.venueID);
          
          
          String result = "";

@@ -1,18 +1,16 @@
 package com.prcse.datamodel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.prcse.observer.IObserver;
-import com.prcse.observer.ISubject;
-
 /*
- * DEV NOTES: It may be better to use a decorator for customer
+ *
  */
-public class Customer implements ISubject, IObserver{
-    
+public class Customer extends PersistantObject {
+	
     private Account account;
-	private ArrayList<Booking> bookings = null;
+	private ArrayList<Booking> bookings;
     private String title;
     private String forename;
     private String surname;
@@ -22,45 +20,10 @@ public class Customer implements ISubject, IObserver{
     private String addr2;
     private String town;
     private String county;
-    private Date created;
-    
-   //added by phill
+	private String postcode;
     private String country;
-    private String postcode;
-    private long customerID;
-    
-    
-       public long getCustomerID() {
-		return customerID;
-	}
-
-	public void setCustomerID(long customerID) {
-		this.customerID = customerID;
-	}
-       
-        
-    
-     public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-        
-         public String getPostcode() {
-		return postcode;
-	}
-
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
-	}
-           public void setCreated(Date created) {
-		this.created = created;
-	}
-    //end added by phill
-    
-    private ArrayList<IObserver> observers = null;
+    private Date created;
+    private String thumb;
     
     public Customer()
     {
@@ -74,12 +37,15 @@ public class Customer implements ISubject, IObserver{
         this.addr2 = "";
         this.town = "";
         this.county = "";
+        this.postcode = "";
+        this.country = "";
         this.created = null;
+        bookings = new ArrayList<Booking>();
     }
 
-    public Customer(String email, String password, String title, String forename, String surname, String telephone, String mobile, String addr1, String addr2, String town, String county) 
+    public Customer(String email, String password, String title, String forename, String surname, String telephone, String mobile, String addr1, String addr2, String town, String county, String postcode, String country, Date created, boolean newAccount) 
     {
-        this.account = new Account(email, password);
+        this.account = new Account(email, password, newAccount);
         this.title = title;
     	this.forename = forename;
         this.surname = surname;
@@ -89,17 +55,27 @@ public class Customer implements ISubject, IObserver{
         this.addr2 = addr2;
         this.town = town;
         this.county = county;
+        this.postcode = postcode;
+        this.country = country;
         this.bookings = new ArrayList<Booking>();
-        this.created = new Date();
+        
+        if(newAccount == true) {
+        	this.created = new Date();
+        }
+        else {
+        	this.created = created;
+        }
     }
     
     @Override
     public String toString()
     {
-    	return 		"\n username: " + this.account.getEmail()
-    			+	"\n password: " + this.account.getPassword()
+    	return 		"\n id a-c: " + this.getId() + "-" + this.account.getId()
+    			+	"\n username: " + this.account.getEmail()
+    			+	"\n password: " + this.account.getToken()
     			+	"\n forename: " + this.getForename()
-    			+	"\n surname: " 	+ this.getSurname();
+    			+	"\n surname: " 	+ this.getSurname()
+    			+	"\n created: " + this.createdAsString();
     }
     
     public ArrayList<Booking> getBookings() {
@@ -109,9 +85,6 @@ public class Customer implements ISubject, IObserver{
     public void setBookings(ArrayList<Booking> bookings) 
     {
         this.bookings = bookings;
-        //commented by phill
-//        ((ISubject) this.bookings).registerObserver(this);
-        notifyObservers();
     }
     
     
@@ -140,7 +113,6 @@ public class Customer implements ISubject, IObserver{
     public void setForename(String forename) 
     {
         this.forename = forename;
-        notifyObservers();
     }
 
     public String getSurname() 
@@ -151,7 +123,6 @@ public class Customer implements ISubject, IObserver{
     public void setSurname(String surname) 
     {
         this.surname = surname;
-        notifyObservers();
     }
 
     public String getTelephone() 
@@ -162,7 +133,6 @@ public class Customer implements ISubject, IObserver{
     public void setTelephone(String telephone) 
     {
         this.telephone = telephone;
-        notifyObservers();
     }
 
     public String getMobile() 
@@ -173,7 +143,6 @@ public class Customer implements ISubject, IObserver{
     public void setMobile(String mobile) 
     {
         this.mobile = mobile;
-        notifyObservers();
     }
 
     public String getAddr1() 
@@ -184,7 +153,6 @@ public class Customer implements ISubject, IObserver{
     public void setAddr1(String addr1) 
     {
         this.addr1 = addr1;
-        notifyObservers();
     }
 
     public String getAddr2() 
@@ -195,7 +163,6 @@ public class Customer implements ISubject, IObserver{
     public void setAddr2(String addr2) 
     {
         this.addr2 = addr2;
-        notifyObservers();
     }
 
     public String getTown() 
@@ -206,7 +173,6 @@ public class Customer implements ISubject, IObserver{
     public void setTown(String town) 
     {
         this.town = town;
-        notifyObservers();
     }
 
     public String getCounty() 
@@ -217,70 +183,49 @@ public class Customer implements ISubject, IObserver{
     public void setCounty(String county) 
     {
         this.county = county;
-        notifyObservers();
     }
     
-
     public Date getCreated() {
 		return created;
 	}
-
-	@Override
-	public void update() 
-	{
-		// notify all observers (domino effect caused)
-		this.notifyObservers();
-	}
-
-	@Override
-	public Boolean registerObserver(IObserver o) 
-	{
-		Boolean blnAdded = false;
-        // Check observer exists
-        if (o != null) 
-        {
-            // check if the ArrayList of observers has been initilised
-            if (this.observers == null) 
-            {
-                this.observers = new ArrayList<>();
-            }
-            // Add the observer to the list and true the blnAdded variable
-            blnAdded = this.observers.add(o);
-        }
-        return blnAdded;
-	}
-
-	@Override
-	public Boolean removeObserver(IObserver o) 
-	{
-		Boolean blnRemoved = false;
-        // Check observer exists
-        if (o != null) 
-        {
-            // check the array has been initilised
-            if (this.observers != null) 
-            {
-                // If it has try to remove observer passed
-                blnRemoved = this.observers.remove(o);
-            }
-        }
-        return blnRemoved;
-	}
-
-	@Override
-	public void notifyObservers() 
-	{
-		// check the list of observables is valid
-        if (this.observers != null && this.observers.size() > 0) 
-        {
-            // loop through each observer in ArrayList
-            for (IObserver currentObserver : this.observers) 
-            {
-                // call update for current observer
-                currentObserver.update();
-            }
-        }
+    
+     public void setCreated(Date created) {
+		this.created = created;
 	}
     
-    
+    public String createdAsString() {
+    	SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+    	return fmt.format(created);
+    	
+    	// format date for oracle/mysql
+//    	String date;
+//    	date = created.toString();
+//    	String[] dateParts = date.split(" ");
+//    	date = dateParts[5] + "-" + dateParts[1] + "-" + dateParts[2];
+//    	return date;
+    }
+
+	public String getThumb() {
+		return thumb;
+	}
+
+	public void setThumb(String thumb) {
+		this.thumb = thumb;
+	}
+	
+    public String getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
 }

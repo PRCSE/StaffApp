@@ -31,8 +31,8 @@ public class TourDAO {
                con = getConn();
             PreparedStatement ps = con.prepareStatement(SQLCommand);   
             ps.setString(1,par.getName() );   
-            ps.setLong(2,par.getArtist().getArtistID());
-            ps.setLong(3, par.getTourID());
+            ps.setLong(2,par.getArtist().getId());
+            ps.setLong(3, par.getId());
                  
             ps.executeUpdate(); 
          }
@@ -53,7 +53,7 @@ public class TourDAO {
                con = getConn();
             PreparedStatement ps = con.prepareStatement(SQLCommand);   
             ps.setString(1,par.getName() );   
-            ps.setLong(2,par.getArtist().getArtistID());
+            ps.setLong(2,par.getArtist().getId());
            
                  
             ps.executeUpdate(); 
@@ -80,10 +80,10 @@ public class TourDAO {
              rs = st.executeQuery();
              while (rs.next()){
                 System.out.println("inside while in getTour Details...");     
-                 Artist a = new Artist(rs.getString("aname"));
-                 a.setArtistID(rs.getLong("aid"));
-                 result = new Tour(rs.getString("name"),a);
-                  result.setTourID(rs.getLong("id"));
+                 Artist a = new Artist(rs.getLong("aid"),rs.getString("aname"),null,null,null,null);
+                 
+                 result = new Tour(rs.getLong("id"),rs.getString("name"),a);
+                 
                  
              }
             
@@ -107,12 +107,8 @@ public class TourDAO {
              st = con.prepareStatement(sql);
              rs = st.executeQuery();
              while (rs.next()){
-                  Event e = new Event(rs.getString("name"),null,null);
-                     Calendar cal = Calendar.getInstance();
-                     cal.setTime(rs.getDate("start_time"));
-                     e.setStartTime(cal);
-                     cal.setTime(rs.getDate("end_time"));
-                     e.setEndTime(cal);
+                  Event e = new Event(rs.getLong("id"),rs.getString("name"),rs.getDate("start_time"),rs.getDate("end_time"));
+                  
                     result.add(e);
                 
              }

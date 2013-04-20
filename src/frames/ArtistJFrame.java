@@ -28,8 +28,8 @@ public class ArtistJFrame extends javax.swing.JFrame {
         if(a==null)
             return;
         this.jTextName.setText(a.getName());
-        this.jTextDesc.setText(a.getDescription());
-        this.artistID = a.getArtistID();
+        this.jTextDesc.setText(a.getBio());
+        this.artistID = a.getId();
         
        Vector eventlist = (Vector)par.get(1);
        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -499,12 +499,9 @@ public class ArtistJFrame extends javax.swing.JFrame {
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
         // TODO add your handling code here:
          // TODO add your handling code here:
-        Artist a = new Artist(null);
+        Artist a = new Artist(this.artistID,this.jTextName.getText(),jTextDesc.getText(),null,null,null);
          persistence.ArtistDAO dao  = new persistence.ArtistDAO();
-         
-         a.setName(this.jTextName.getText());
-         a.setDescription(jTextDesc.getText());
-         a.setArtistID(this.artistID);
+      
          
          
          String result = "";

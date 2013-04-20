@@ -36,9 +36,9 @@ public class EventDAO {
                con = getConn();
             PreparedStatement ps = con.prepareStatement(SQLCommand);   
             ps.setString(1, e.getName());   
-            ps.setDate(2, new java.sql.Date(e.getStartTime().getTime().getTime()));
-            ps.setDate(3, new java.sql.Date(e.getEndTime().getTime().getTime())); 
-            ps.setLong(4,e.getEventID());
+            ps.setDate(2, new java.sql.Date(e.getStartTime().getTime()));
+            ps.setDate(3, new java.sql.Date(e.getEndTime().getTime())); 
+            ps.setLong(4,e.getId());
             //ps.setLong(4, sp.getSeatingPlanID());
             ps.executeUpdate(); 
          }
@@ -60,8 +60,8 @@ public class EventDAO {
                con = getConn();
             PreparedStatement ps = con.prepareStatement(SQLCommand);   
             ps.setString(1, e.getName());   
-            ps.setDate(2, new java.sql.Date(e.getStartTime().getTime().getTime()));
-            ps.setDate(3, new java.sql.Date(e.getEndTime().getTime().getTime())); 
+            ps.setDate(2, new java.sql.Date(e.getStartTime().getTime()));
+            ps.setDate(3, new java.sql.Date(e.getEndTime().getTime())); 
             //ps.setLong(4, sp.getSeatingPlanID());
             ps.executeUpdate(); 
          }
@@ -85,9 +85,9 @@ public class EventDAO {
                Billing b = t.getBills().get(0);
             PreparedStatement ps = con.prepareStatement(SQLCommand);   
             ps.setInt(1,b.getLineupOrder());
-            ps.setLong(2,e.getEventID());
-            ps.setLong(3, b.getBilling().getArtistID());
-           ps.setLong(4, t.getTourID());
+            ps.setLong(2,e.getId());
+            ps.setLong(3, b.getArtist().getId());
+           ps.setLong(4, t.getId());
             
             ps.executeUpdate(); 
          }
@@ -120,12 +120,8 @@ public class EventDAO {
             rs = st.executeQuery();
             while (rs.next()){
              
-                 Event e = new Event(rs.getString("id") + "," + rs.getString("name"),null,null);
-                     Calendar cal = Calendar.getInstance();
-                     cal.setTime(rs.getDate("start_time"));
-                     e.setStartTime(cal);
-                     cal.setTime(rs.getDate("end_time"));
-                     e.setEndTime(cal);
+                 Event e = new Event(rs.getLong("id"),rs.getString("id") + "," + rs.getString("name"),rs.getDate("start_time"),rs.getDate("end_time"));
+                   ;
                      result.add(e);
                               
             }
@@ -197,12 +193,10 @@ public class EventDAO {
              Calendar cal1 = Calendar.getInstance();
              Calendar cal2 = Calendar.getInstance();
              while (rs.next()){
-                  cal1.setTime(rs.getDate("start_time"));
-                  cal2.setTime(rs.getDate("end_time"));
-                  result = new Event(rs.getString("name"),cal1,cal2);
-                  result.setEventID(rs.getLong(1));
-                  Venue v = new Venue(rs.getString("vname"));
-                  v.setVenueID(rs.getLong("vid"));
+                  
+                  result = new Event(rs.getLong("id"),rs.getString("name"),rs.getDate("start_time"),rs.getDate("end_time"));
+                  Venue v = new Venue(rs.getString("vname"),0d,0d);
+                  v.setId(rs.getLong("vid"));
                   v.setAddr1(rs.getString("line_1"));
                   v.setDescription("description");
                   v.setPostcode(rs.getString("postcode"));
@@ -216,9 +210,9 @@ public class EventDAO {
                   ArrayList<Billing> billArr = new ArrayList<Billing>();
                   
                   while (rsbill.next()){
-                      Artist a = new Artist(rsbill.getString("name") + "," + rsbill.getString("tname"));
-                      Billing b = new Billing(a);
-                      b.setLineupOrder(rsbill.getInt("lineup_order"));
+                      Artist a = new Artist(0l,rsbill.getString("name") + "," + rsbill.getString("tname"),
+                              null,null,null,null);
+                      Billing b = new Billing(0l,a,null,rsbill.getInt("lineup_order"));
                       billArr.add(b);
                   }
                   

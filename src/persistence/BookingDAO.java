@@ -52,7 +52,7 @@ public class BookingDAO {
                 ArrayList<Booking> booklist = new ArrayList<Booking>();
                 
                 while (eventrs.next()){
-                     Event e = new Event(eventrs.getString("name"),null,null);
+                     Event e = new Event(0l,eventrs.getString("name"),null,null);
                      Booking b = new Booking(e);
                      b.setCreated(eventrs.getDate("created"));
                      b.setConfirmed(eventrs.getDate("created_confirmed"));
@@ -86,8 +86,8 @@ public class BookingDAO {
            
             ps.setDate(1, new java.sql.Date(new java.util.Date().getTime()));
             ps.setDate(2, new java.sql.Date(new java.util.Date().getTime()));
-             ps.setLong(3,c.getCustomerID());
-            ps.setLong(4,c.getBookings().get(0).getEvent().getEventID());
+             ps.setLong(3,c.getId());
+            ps.setLong(4,c.getBookings().get(0).getEvent().getId());
             ps.setDate(5, new java.sql.Date(new java.util.Date().getTime()));
             ps.setDate(6, new java.sql.Date(new java.util.Date().getTime()));
             ps.executeUpdate(); 

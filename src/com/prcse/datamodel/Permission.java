@@ -2,7 +2,7 @@ package com.prcse.datamodel;
 
 import java.util.ArrayList;
 
-public class Permission {
+public class Permission extends PersistantObject {
 	
 	private ArrayList<Account> accounts;
 	private String name;
@@ -19,11 +19,6 @@ public class Permission {
 	
 	public void addAccount(Account account)
 	{
-		if (accounts == null)
-		{
-			accounts = new ArrayList<Account>();
-		}
-		
 		accounts.add(account);
 	}
 	
@@ -42,5 +37,10 @@ public class Permission {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Permission [accounts=" + accounts + ", name=" + name + "]";
 	}
 }
