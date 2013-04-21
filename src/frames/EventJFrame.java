@@ -293,7 +293,7 @@ public class EventJFrame extends javax.swing.JFrame {
         );
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel9.setText("Billing");
+        jLabel9.setText("Lineup");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -339,7 +339,7 @@ public class EventJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButtonAddBilling.setText("Add Billing");
+        jButtonAddBilling.setText("Add to Lineup");
         jButtonAddBilling.setToolTipText("");
         jButtonAddBilling.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -356,7 +356,7 @@ public class EventJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButtonSaveBilling.setText("Save Billing");
+        jButtonSaveBilling.setText("Save Lineup");
         jButtonSaveBilling.setEnabled(false);
         jButtonSaveBilling.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -368,7 +368,7 @@ public class EventJFrame extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel11.setText("Billing for Artist");
+        jLabel11.setText("Artist");
 
         jComboBoxArtist.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 

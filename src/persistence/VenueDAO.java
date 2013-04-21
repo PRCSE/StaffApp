@@ -58,7 +58,7 @@ public class VenueDAO {
                 
                 
                 sql = "select e.* from event e,seating_plan s where s.venue_id=" + rs.getString("id");
-                sql+= " and e.seating_plan = s.id";
+                sql+= " and e.seating_plan_id = s.id";
                 eventst = con.prepareCall(sql);
                 eventrs = eventst.executeQuery();
                 

@@ -12,11 +12,11 @@ import java.sql.DriverManager;
 //of yout environment
 public class ConnectionPar {
     //"jdbc:oracle:thin:@localhost:1521:orcl","sys as SYSDBA","admin");
-    private String server="localhost";
+    private String server="larry.uopnet.plymouth.ac.uk";
     private String port="1521";
     private String sid="orcl";
-    private String username="sys as SYSDBA";
-    private String password ="admin";
+    private String username="PRCSE";
+    private String password ="tookieknows";
     
  
        public Connection getConn(){

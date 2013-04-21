@@ -67,7 +67,7 @@ public class EventDAO {
          Connection con = null;
          //building the sql
          String SQLCommand = "INSERT INTO event " +   
-                    "(id,name,start_time,end_time,seating_plan) " +   
+                    "(id,name,start_time,end_time,seating_plan_id) " +   
                     "VALUES (seq_event_id.NEXTVAL,?,?,?,1)";  
          try{
               //obtain the database connection by calling getConn() 
@@ -216,7 +216,7 @@ public class EventDAO {
                    + ",v.id as vid from event e,seating_plan s,venue v where  "
                    + "to_date(start_time,'DD-MM-YY') = to_date('" + arr[0];
            sql = sql +  "','DD-MM-YY') and to_date(end_time,'DD-MM-YY') = to_date('" + arr[1] + "','DD-MM-YY') ";
-           sql += "and e.seating_plan = s.id and s.venue_id = v.id";
+           sql += "and e.seating_plan_id = s.id and s.venue_id = v.id";
            
            
             Connection con = null;
