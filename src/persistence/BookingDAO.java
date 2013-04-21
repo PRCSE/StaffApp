@@ -13,16 +13,15 @@ import java.sql.SQLException;
 import java.util.Vector;
 import java.util.ArrayList;
 import java.util.Calendar;
-/**
- *
- * @author snowman
- */
+ 
 public class BookingDAO {
+    //This method uses the ConnectionPar Class to obtain connection to database
    private Connection getConn(){
     
         return new util.ConnectionPar().getConn();
     }
       
+   //this method retireves all the cancelled bookings from database
       public Vector<Customer> getCancellations(){
         Connection con = null;
         PreparedStatement st = null;
@@ -32,11 +31,18 @@ public class BookingDAO {
         ResultSet eventrs = null;
         Vector<Customer> result = new Vector<Customer>();
         
+        //sql statement
         String sql = "select * from customer";
+         //obtain the database connection by calling getConn()
         con = getConn();
         
         try {
+           
+             //create the PreparedStatement from the Connection object by calling prepareCall
+            //method, passing it the sql  
             st = con.prepareCall(sql);
+            
+            //Calls executeQuery and the resulting data is returned in the resultset
             rs = st.executeQuery();
             
             while(rs.next()){
@@ -51,6 +57,7 @@ public class BookingDAO {
                 eventrs = eventst.executeQuery();
                 ArrayList<Booking> booklist = new ArrayList<Booking>();
                 
+                //loop through the result set and save the data in the datamodel objects
                 while (eventrs.next()){
                      Event e = new Event(0l,eventrs.getString("name"),null,null);
                      Booking b = new Booking(e);
@@ -73,23 +80,29 @@ public class BookingDAO {
       }
       
       
-      
+ //This method takes Customer object as parameter and inserts The Booking object contained
+      //withing this Customer object into the Booking table
         public String insertBooking(Customer c){
          String result = "0";
          Connection con = null;
+         //building the sql command
          String SQLCommand = "INSERT INTO booking " +   
                     "(id,created,created_confirmed,customer_id,event_id,cancelled,cancelled_confirmed) "  +
                     "VALUES (seq_booking_id.NEXTVAL,?,?,?,?,?,?)";  
          try{
+               //obtain the database connection by calling getConn()
                con = getConn();
+            //create the PreparedStatement from the Connection object by calling prepareCall
+            //method, passing it the sql , parameters are represented by ? in the sql
             PreparedStatement ps = con.prepareStatement(SQLCommand);   
-           
+               //setting the parameters values
             ps.setDate(1, new java.sql.Date(new java.util.Date().getTime()));
             ps.setDate(2, new java.sql.Date(new java.util.Date().getTime()));
              ps.setLong(3,c.getId());
             ps.setLong(4,c.getBookings().get(0).getEvent().getId());
             ps.setDate(5, new java.sql.Date(new java.util.Date().getTime()));
             ps.setDate(6, new java.sql.Date(new java.util.Date().getTime()));
+             //exceuting the insert or update operation   
             ps.executeUpdate(); 
          }
          catch (SQLException ex){
@@ -99,7 +112,8 @@ public class BookingDAO {
          return result;
      }
         
-        
+  //This method returns a list of all customers and stores them in an array string
+        //this method is called by the JFrame to fills the combo box or list control
         public String[] getCustomersList() {
         Connection con = null;
         PreparedStatement st = null;
@@ -107,9 +121,14 @@ public class BookingDAO {
          Vector<String> list = new Vector<String>();
          String[] result = null;
          try {
+              //obtain the database connection by calling getConn()
              con = getConn();
+                //create the PreparedStatement from the Connection object by calling prepareCall
+            //method, passing it the sql that is constructed using the supplied parameters
              st = con.prepareStatement("select * from Customer");
+              //Calls executeQuery and the resulting data is returned in the resultset
              rs = st.executeQuery();
+               //loop through the result set and save the data in the datamodel objects
              while (rs.next()){
                  System.out.println("inside while....");
                  list.add(rs.getString("id") + "," + rs.getString("FORENAME") + "," + rs.getString("SURNAME"));
@@ -124,6 +143,7 @@ public class BookingDAO {
          catch (SQLException e){
              
          }
+          //close the resultset,preparedstatement and connection to relase resources  
          if (rs != null){
              try{
              rs.close();

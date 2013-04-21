@@ -8,17 +8,25 @@ import java.util.HashMap;
 import java.util.Vector;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-/**
- *
- * @author snowman
- */
+ 
 public class TourJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form CustomerJFrame
-     */
+     */ 
+    
+    
+      //this is the process variable, it is used to know whether the
+    //opearion is create or update, when the save button is clikced.
     private String process = "";
+    
+      //this is where the id of current tour is saved, in order to be
+    //used in update operation.
     private long tourID = 0l;
+    
+     //retrive the  list of events connected to this tour  
+        //the getTourEvents method in TourDAO is called
+        //the method returns List of Event objects
     private Vector<Event> getTourEvents(String par){
         if (par==null)
             return null;
@@ -26,18 +34,26 @@ public class TourJFrame extends javax.swing.JFrame {
        return dao.getTourEvents(par);
     }
     
+    //retrive the tour information by tour name
+        //the getTourDetails method in TourDAO is called
+        //the method returns Tour object
     private Tour getTourDetails(String par){
+     
         if (par==null)
             return null;
         persistence.TourDAO dao  = new persistence.TourDAO();
         return dao.getTourDetails(par);
     }
     
+      //This method takes the Tour object as parameter,this Tour object 
+        //is returned by getTourDetails, and fills the data in the
+        //UI controls in the screen
     private void fillTourDetails(Tour par){
-       
+      //test if the tour is null, exit and do not do anything
         if (par==null)
             return;
         
+       //filling the text fields with the data from the Tour object  
         this.jTextField1.setText(par.getName());
        String art = par.getArtist().getId() + "," + par.getArtist().getName();
        this.jComboBoxArtist.setSelectedItem(art);
@@ -46,6 +62,8 @@ public class TourJFrame extends javax.swing.JFrame {
         
     }
     
+     //This method use the EventDAO to retrieve all the Artists and fills
+    // in the Combo Box (drop down list) control which displays the Artist. 
     private void fillArtistList(){
            persistence.EventDAO dao  = new persistence.EventDAO();
       javax.swing.DefaultListModel model1 = new javax.swing.DefaultListModel();
@@ -54,6 +72,8 @@ public class TourJFrame extends javax.swing.JFrame {
       
     }
     
+     //This method use the TourDAO to retrieve all the Events and fills
+    // in the Combo Box (drop down list) control which displays the Artist. 
       private void fillEventList(){
            persistence.TourDAO dao  = new persistence.TourDAO();
       javax.swing.DefaultListModel model1 = new javax.swing.DefaultListModel();
@@ -61,13 +81,19 @@ public class TourJFrame extends javax.swing.JFrame {
       this.jComboBoxEvent.setModel(new javax.swing.DefaultComboBoxModel(list));
       
     }
+   
+      //fills the table of tour events using the Vector of Event objects
+      
     private void fillTourEvents(Vector<Event> par){
+        //tests if the Vector is null, just exits and do not do anything
        if (par == null)
            return;
-    
+       
+    //SimpleDateFormat is used for formatting dates, in order not to display the time with the date
        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         
-
+    //Construct an array and fills it from the Vector of Event, then use it to
+       //fill the table of events
          String[] colNames = {"Name" , "Start Time","End Time"};
          String[][] data  = new String[par.size()][3];
          for (int i =0 ; i < par.size();i++ ){
@@ -83,6 +109,9 @@ public class TourJFrame extends javax.swing.JFrame {
      
           
     }
+    
+     //This method use the TourDAO to retrieve all the Tours and fills
+    // in the List control at the left side of the screen.
     private void fillTourList(){
             persistence.TourDAO dao  = new persistence.TourDAO();
       javax.swing.DefaultListModel model1 = new javax.swing.DefaultListModel();
@@ -93,6 +122,17 @@ public class TourJFrame extends javax.swing.JFrame {
       this.jList1.setModel(model1);
       jList1.setSelectedIndex(0);
     }
+    
+    
+    //This is the constructor, it is called when the screen is first loaded,
+    //it initiates the UI controls by calling initComponents() , then calls
+    // fillTourList() to populate the List with the tours, then fills the 
+    //details of the current selected Tour by calling fillTourDetails
+    // and passing it the Event object that is returned from calling getTourDetails
+    // Which takes the current selected tour in the List as a parameter
+      //The constructor also calls fillArtistList() & fillEventList()  to fill the artist drop down list
+    //and events drop down lists, hide the panel2 which contains the events drop down list
+      //Calls the fillTourEvents() to fill the tour's events in the table of events
     public TourJFrame() {
         initComponents();
         fillTourList();
@@ -456,12 +496,15 @@ public class TourJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+        //When the user selects another tour from the list, fills its
+    //details in the fields and tables.
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
         // TODO add your handling code here:
         fillTourEvents(getTourEvents((String)jList1.getSelectedValue()));
           fillTourDetails(getTourDetails((String)jList1.getSelectedValue()));
     }//GEN-LAST:event_jList1ValueChanged
 
+     //this is called when the Customer menu item is selected from the Manage menu.
     private void jMenuItemCustomer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCustomer1ActionPerformed
         // TODO add your handling code here:
         CustomerJFrame  myFrame = new   CustomerJFrame();
@@ -470,6 +513,7 @@ public class TourJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemCustomer1ActionPerformed
 
+       //this is called when the Artist menu item is selected from the Manage menu.
     private void jMenuItemVenueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVenueActionPerformed
         // TODO add your handling code here:
         ArtistJFrame  myFrame = new   ArtistJFrame();
@@ -478,6 +522,7 @@ public class TourJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemVenueActionPerformed
 
+      //this is called when the Venue menu item is selected from the Manage menu.
     private void jMenuItemDatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDatesActionPerformed
         // TODO add your handling code here:
         VenueJFrame  myFrame = new   VenueJFrame();
@@ -486,6 +531,7 @@ public class TourJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemDatesActionPerformed
 
+      //this is called when the Date menu item is selected from the Manage menu.
     private void jMenuItemDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDateActionPerformed
         // TODO add your handling code here:
         DateJFrame  myFrame = new   DateJFrame();
@@ -494,6 +540,7 @@ public class TourJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemDateActionPerformed
 
+      //this is called when the Cancellations menu item is selected from the Manage menu.
     private void jMenuItemCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCancelActionPerformed
         // TODO add your handling code here:
         CancellationJFrame  myFrame = new   CancellationJFrame();
@@ -502,6 +549,7 @@ public class TourJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemCancelActionPerformed
 
+      //this is called when the Event menu item is selected from the Manage menu.
     private void jMenuItemEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEventActionPerformed
         // TODO add your handling code here:
         EventJFrame  myFrame = new   EventJFrame();
@@ -510,11 +558,16 @@ public class TourJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemEventActionPerformed
 
+     //this is called when the Exit menu is clicked, it exits the application
     private void jMenuExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuExitMouseClicked
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jMenuExitMouseClicked
 
+    
+         //this event handler is called when the create button is pressed
+    //it empties the text fields and tables to enter the data of new tour
+    //it also sets the value of process variable to be "add"
     private void jButtonCreateTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateTourActionPerformed
         // TODO add your handling code here:
          this.process = "add";
@@ -536,6 +589,8 @@ public class TourJFrame extends javax.swing.JFrame {
          this.jTable2.setModel(model);
     }//GEN-LAST:event_jButtonCreateTourActionPerformed
 
+    //event handler which is called when Edit button is clicked, it enables
+    //the controls so the use can change the data, and sets the process to be "edit"
     private void jButtonEditTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditTourActionPerformed
         // TODO add your handling code here:
             this.process = "edit";
@@ -551,10 +606,12 @@ public class TourJFrame extends javax.swing.JFrame {
          
     }//GEN-LAST:event_jButtonEditTourActionPerformed
 
+    //This event handler is called when the Save button is pressed
     private void jButtonSaveTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveTourActionPerformed
         // TODO add your handling code here:
         
-        
+         //first it creates a new Tour object and fills it with information
+        //which are entered by the user in the text fields.
          persistence.TourDAO dao  = new persistence.TourDAO();
        
         
@@ -567,11 +624,17 @@ public class TourJFrame extends javax.swing.JFrame {
          
          
          String result = "";
+         //it testes the process variable, if it is add, it will call insertTour method
+         //if it is  edit it will call updateTour. In either case, it will pass the
+         //Tour object mentioned abive as a parameter
          if (this.process.equalsIgnoreCase("add"))
                 result = dao.insertTour(t);
           if (this.process.equalsIgnoreCase("edit"))
                 result = dao.updateTour(t);
          
+         //the result variable contains the result of the above operation, if all things
+          //went correctly, then display success message to the user, and disable the text 
+          //fields , enable the create and edit buttons, disable the save and cancel buttons
          if (result.equalsIgnoreCase("0"))
          {
                  javax.swing.JOptionPane.showMessageDialog(null,  "Tour saved successfully",
@@ -595,6 +658,8 @@ public class TourJFrame extends javax.swing.JFrame {
          }
          else
          {
+                  //if an error happened, display the error message which is obtained from the ErrorMessage
+             //class by passing it the sql error code retruned from the DAO-->oracle DB
              String errorMsg = "An Error occurred: " + new util.ErrorMessages().getMessage(result);
              javax.swing.JOptionPane.showMessageDialog(null, errorMsg, "error", javax.swing.JOptionPane.ERROR_MESSAGE); 
          }
@@ -603,8 +668,15 @@ public class TourJFrame extends javax.swing.JFrame {
          
     }//GEN-LAST:event_jButtonSaveTourActionPerformed
 
+    
+       //event handler which is called when the cancel button is pressed
+    //it cancels the edit or create operation, undo the changes and 
+    //disable the text fields.
     private void jButtonCancelTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelTourActionPerformed
         // TODO add your handling code here:
+        
+         //it calls the fillTourDetails to fill the information
+             //of the currently selected Tour
          if(process.equalsIgnoreCase("add")){
             jList1.setSelectedIndex(0);
             fillTourDetails(getTourDetails((String)jList1.getSelectedValue()));
@@ -626,6 +698,10 @@ public class TourJFrame extends javax.swing.JFrame {
           this.jButtonSaveTour.setEnabled(false);
     }//GEN-LAST:event_jButtonCancelTourActionPerformed
 
+     //This event handler is called when the Add Event button is clicked, it enables 
+    //the save & Cancel event buttons, disable the Add event Button and makes the 
+    //Panel2 , which contains the event drop down list, visible, as it is set initiallly
+    //to be invisible
     private void jButtonAddEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddEventActionPerformed
         // TODO add your handling code here:
             this.jButtonAddEvent.setEnabled(false);
@@ -634,26 +710,38 @@ public class TourJFrame extends javax.swing.JFrame {
         this.jPanel2.setVisible(true);  
     }//GEN-LAST:event_jButtonAddEventActionPerformed
 
+     //This event handler is called when the Save Event Button is clicked
     private void jButtonSaveEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveEventActionPerformed
         // TODO add your handling code here:
-              
+          
+        //obtain the value selected in the artist list, split it to get the artist id
           String[] artistArr = this.jComboBoxArtist.getSelectedItem().toString().split(",");
+        //obtain the value selected in the event list, split it to get the event id
           String[] eventArr = this.jComboBoxEvent.getSelectedItem().toString().split(",");
+          
+          //creates event object with the selected event id,
+           //creates Artist object with the selected artist id
+          //creates a Tour object with the id of the current Tour in the screen (using tourID variable)
+   
         Event e = new Event(Long.parseLong(eventArr[0]),null,null,null);
         
           
         Artist a = new Artist(Long.parseLong(artistArr[0]),null,null,null,null,null);
       
          Tour t = new Tour(this.tourID,null,a);
-      
+       //create a Billing object for the Artist object created above, which is passed to the constructor
           Billing b = new Billing(0l,a,null,1);
+          
+         //add the billing object created in the previous step to the Tour object
             t.addBill(b);
         
-   
+       //send the billing object to the database by calling addBilling method from EventDAO
+        //passing the Tour and Event objects as parameters
         persistence.EventDAO dao = new persistence.EventDAO();
         dao.addBilling(t, e);
         
-        
+         //enable the Add Event button, disable the Save & Cancel Event Buttons, and hide the
+        // panel which contains the event drop down list 
           this.jButtonAddEvent.setEnabled(true);
         this.jButtonSaveEvent.setEnabled(false);
            this.jButtonCancelEvent.setEnabled(false);
@@ -661,6 +749,9 @@ public class TourJFrame extends javax.swing.JFrame {
             fillTourEvents(getTourEvents((String)jList1.getSelectedValue()));
     }//GEN-LAST:event_jButtonSaveEventActionPerformed
 
+    //This event handler is invoked when the Cancel Event button is clicked, it 
+    //enable the Add Event button, disable the Save & Cancel event Buttons,
+    //and hide the events drop down list again
     private void jButtonCancelEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelEventActionPerformed
         // TODO add your handling code here:
             this.jButtonAddEvent.setEnabled(true);

@@ -15,11 +15,15 @@ import java.text.SimpleDateFormat;
 public class CancellationJFrame extends javax.swing.JFrame {
 
     private Vector<Customer> getCancellations() {
+         //retrieves the list of cancelled bookings by called getCancellations
+        //in the BookingDAO
         BookingDAO dao = new BookingDAO();
         return dao.getCancellations();
     }
     
     private void fillCancellations(Vector<Customer> custlist){
+        //This method fills the list of Customer objects, which is returned from calling the
+        //above method getCancellations, in the table
          String[] colNames = {"Event" ,"Customer","Created","Created Confirmed","Cancelled","Approved"};
        
          int total = 0;
@@ -54,6 +58,10 @@ public class CancellationJFrame extends javax.swing.JFrame {
     /**
      * Creates new form CancellationJFrame
      */
+    //This is the constructor, it is called when the screen is first loaded,
+    //it initiates the UI controls by calling initComponents() , then calls
+    //fillCancellations to populate the  table with the cancelled bookins,the
+    //which takes the results of calling getCancellations() as a parameter.
     public CancellationJFrame() {
         initComponents();
         fillCancellations(getCancellations());
@@ -188,6 +196,7 @@ public class CancellationJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //this is called when the Customer menu item is selected from the Manage menu.
     private void jMenuItemCustomer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCustomer1ActionPerformed
         // TODO add your handling code here:
         CustomerJFrame  myFrame = new   CustomerJFrame();
@@ -196,6 +205,7 @@ public class CancellationJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemCustomer1ActionPerformed
 
+    //this is called when the Artist menu item is selected from the Manage menu.
     private void jMenuItemVenueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVenueActionPerformed
         // TODO add your handling code here:
         ArtistJFrame  myFrame = new   ArtistJFrame();
@@ -204,6 +214,7 @@ public class CancellationJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemVenueActionPerformed
 
+     //this is called when the Venue menu item is selected from the Manage menu.
     private void jMenuItemDatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDatesActionPerformed
         // TODO add your handling code here:
         VenueJFrame  myFrame = new   VenueJFrame();
@@ -212,6 +223,7 @@ public class CancellationJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemDatesActionPerformed
 
+    //this is called when the Dates menu item is selected from the Manage menu.
     private void jMenuItemDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDateActionPerformed
         // TODO add your handling code here:
         DateJFrame  myFrame = new   DateJFrame();
@@ -220,6 +232,7 @@ public class CancellationJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemDateActionPerformed
 
+    //this is called when the Event menu item is selected from the Manage menu.
     private void jMenuItemEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEventActionPerformed
         // TODO add your handling code here:
         EventJFrame  myFrame = new   EventJFrame();
@@ -228,6 +241,7 @@ public class CancellationJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemEventActionPerformed
 
+    //this is called when the Tour menu item is selected from the Manage menu.
     private void jMenuItemTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTourActionPerformed
         // TODO add your handling code here:
         TourJFrame  myFrame = new   TourJFrame();
@@ -236,6 +250,7 @@ public class CancellationJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemTourActionPerformed
 
+    //this is called when the Exit menu is clicked to exit the application
     private void jMenuExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuExitMouseClicked
         // TODO add your handling code here:
         System.exit(0);

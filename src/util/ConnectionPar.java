@@ -7,10 +7,9 @@ package util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-/**
- *
- * @author snowman
- */
+ //The is the class which is used by the DAO classes to obtain connection to the database
+//here you can change the parameters like username, password, port .. to the settings
+//of yout environment
 public class ConnectionPar {
     //"jdbc:oracle:thin:@localhost:1521:orcl","sys as SYSDBA","admin");
     private String server="localhost";
@@ -23,6 +22,7 @@ public class ConnectionPar {
        public Connection getConn(){
         Connection con = null;
         try{
+            //The Oracle Driver is used for connection
             Class.forName("oracle.jdbc.driver.OracleDriver");
         }
         catch(ClassNotFoundException e){

@@ -14,16 +14,15 @@ import com.prcse.datamodel.*;
 import java.util.HashMap;
 import java.util.Calendar;
 
-/**
- *
- * @author snowman
- */
+ 
 public class ArtistDAO {
+    //This method uses the ConnectionPar Class to obtain connection to database
     private Connection getConn(){
     
         return new util.ConnectionPar().getConn();
     }
-    
+
+    //This method takes artist name as parameter , and returns its details in a Hashmap
  public HashMap getArtistDetails(String name){
         Connection con = null;
         PreparedStatement st = null;
@@ -37,12 +36,18 @@ public class ArtistDAO {
         ResultSet tourrs = null;
         
         try {
+            //obtain the database connection by calling getConn()
             con = getConn();
             String sql = "";
              
+           //create the PreparedStatement from the Connection object by calling prepareCall
+            //method, passing it the sql that is constructed using the supplied parameters
             st = con.prepareCall("select * from artist where name = '" + name + "'");
             
+            //Calls executeQuery and the resulting data is returned in the resultset
             rs = st.executeQuery();
+            
+            //loop through the result set and save the data in the datamodel objects
             while (rs.next()){
                 Artist a = new Artist(rs.getLong("id"),null,null,null,null,null);
                 a.setName(rs.getString("name"));
@@ -80,7 +85,7 @@ public class ArtistDAO {
          catch (SQLException e){
              e.printStackTrace();
          }
-        
+      //close the resultset,preparedstatement and connection to relase resources  
         if (rs != null){
              try{
              rs.close();
@@ -153,6 +158,8 @@ public class ArtistDAO {
          }
         return result;
  }
+  //This method returns a list of all artists in an Array of String, it is called by the
+ //JFrame to fill the list of artists
  public String[] getArtistsList() {
         Connection con = null;
         PreparedStatement st = null;
@@ -160,9 +167,15 @@ public class ArtistDAO {
          Vector<String> list = new Vector<String>();
          String[] result = null;
          try {
+              //obtain the database connection by calling getConn()
              con = getConn();
+              //create the PreparedStatement from the Connection object by calling prepareCall
+            //method, passing it the sql that is constructed using the supplied parameters
              st = con.prepareStatement("select * from Artist");
+              //Calls executeQuery and the resulting data is returned in the resultset
              rs = st.executeQuery();
+             
+             //loop through the result set and save the data in the datamodel objects
              while (rs.next()){
                  System.out.println("inside while....");
                  list.add(rs.getString("NAME"));
@@ -177,6 +190,8 @@ public class ArtistDAO {
          catch (SQLException e){
              
          }
+         
+          //close the resultset,preparedstatement and connection to relase resources  
          if (rs != null){
              try{
              rs.close();
@@ -208,7 +223,7 @@ public class ArtistDAO {
          
          return result;
     }
- 
+ //This method takes Artist object as parameter and inserts it into the artist table
  public String insertArtist(Artist a){
          String result = "0";
          Connection con = null;
@@ -216,12 +231,16 @@ public class ArtistDAO {
                     "(id,name,description) " +
                     "VALUES (seq_artist_id.NEXTVAL,?,?)";  
          try{
+              //obtain the database connection by calling getConn()
                con = getConn();
-            PreparedStatement ps = con.prepareStatement(SQLCommand);   
-            ps.setString(1,a.getName() );   
+                 //create the PreparedStatement from the Connection object by calling prepareCall
+            //method, passing it the sql , parameters are represented by ? in the sql
+            PreparedStatement ps = con.prepareStatement(SQLCommand);  
+            //setting the parameters values
+            ps.setString(1,a.getName() );  
             ps.setString(2,a.getBio());
            
-                 
+            //exceuting the insert or update operation    
             ps.executeUpdate(); 
          }
          catch (SQLException ex){
@@ -231,19 +250,27 @@ public class ArtistDAO {
          return result;
      }
  
- 
+  //This method takes Artist object as parameter and update the record in the artist table
+ //which has the same id as the Artist parameter object.
  public String updateArtist(Artist a){
          String result = "0";
          Connection con = null;
          String SQLCommand = "UPDATE artist set name = ?,description = ? where id = ?";  
                     
          try{
+              //obtain the database connection by calling getConn()
                con = getConn();
-            PreparedStatement ps = con.prepareStatement(SQLCommand);   
+               
+            //create the PreparedStatement from the Connection object by calling prepareCall
+            //method, passing it the sql , parameters are represented by ? in the sql
+            PreparedStatement ps = con.prepareStatement(SQLCommand); 
+            
+            //setting the parameters values
             ps.setString(1,a.getName() );   
             ps.setString(2,a.getBio());
             ps.setLong(3, a.getId());
-                 
+            
+             //exceuting the insert or update operation
             ps.executeUpdate(); 
          }
          catch (SQLException ex){

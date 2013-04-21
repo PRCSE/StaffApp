@@ -6,17 +6,23 @@ package frames;
 import com.prcse.datamodel.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-/**
- *
- * @author snowman
- */
+ 
 public class CustomerJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form CustomerJFrame
      */
+    //this is the process variable, it is used to know whether the
+    //opearion is create or update, when the save button is clikced.
     private String process = "";
+    
+    //this is where the id of current customer is saved, in order to be
+    //used in update operation.
     private Long customerID = 0l;
+    
+     //retrive the customer information by customer first name & last name,
+        //the getCustomerDetails method in CustomerDAO is called
+        //the method returns Customer object
     private Customer getCustomerDetails(String par){
         if(par==null)
             return null;
@@ -24,10 +30,20 @@ public class CustomerJFrame extends javax.swing.JFrame {
         persistence.CustomerDAO dao  = new persistence.CustomerDAO();
        return dao.getCustomerDetails(arr[1], arr[2]);
     }
+    
+    
+       //This method takes the Customer object as parameter,this Customer object 
+        //is returned by getCustomerDetails, and fills the data in the
+        //UI controls in the screen
+        
     private void fillCustomerDetails(Customer c){
+     //test if the customer is null, exit and do not do anything
         if (c==null)
             return;
+      //SimpleDateFormat is used for formatting dates, in order not to display the time with the date
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        
+       //filling the text fields with the data from the Customer object
         this.jTextTitle.setText(c.getTitle());
         this.jTextFirstName.setText(c.getForename());
         this.jTextLastName.setText(c.getSurname());
@@ -42,7 +58,9 @@ public class CustomerJFrame extends javax.swing.JFrame {
          this.jTextPostCode.setText(c.getPostcode());
          
           customerID = c.getId();
-         
+        
+       //Now fill the table with the bookings data, bookings are obtained by calling getBookings()
+          // of the Customer object
          String[] colNames = {"Created" , "Created Confirmed","Cancelled","Cancelled Confirmed"};
          java.util.Date[][] data  = new java.util.Date[c.getBookings().size()][4];
          for (int i =0 ; i < c.getBookings().size();i++ ){
@@ -59,6 +77,9 @@ public class CustomerJFrame extends javax.swing.JFrame {
           
           
     }
+    
+        //This method use the CustomerDAO to retrieve all the Customers and fills
+    // in the List control at the left side of the screen.
     private void fillCustomerList(){
            persistence.CustomerDAO dao  = new persistence.CustomerDAO();
       javax.swing.DefaultListModel model1 = new javax.swing.DefaultListModel();
@@ -70,6 +91,9 @@ public class CustomerJFrame extends javax.swing.JFrame {
       jList1.setSelectedIndex(0);
       
     }
+    
+         //This method use the CustomerDAO to retrieve all the Countries and fills
+    // in the Combo Box (drop down list) control which displays the Country. 
       private void fillCountryList(){
            persistence.CustomerDAO dao  = new persistence.CustomerDAO();
       javax.swing.DefaultListModel model1 = new javax.swing.DefaultListModel();
@@ -78,6 +102,10 @@ public class CustomerJFrame extends javax.swing.JFrame {
       
     }
       
+         //This method use the CustomerDAO to retrieve all the Events and fills
+    // in the Combo Box (drop down list) control which displays the Events. 
+      //The event drop down list is initially hidden, but it appears when the
+      //user clicks the Add Booking button.
       private void fillEventList(){
            persistence.CustomerDAO dao  = new persistence.CustomerDAO();
       javax.swing.DefaultListModel model1 = new javax.swing.DefaultListModel();
@@ -86,6 +114,15 @@ public class CustomerJFrame extends javax.swing.JFrame {
       
     }
     
+       //This is the constructor, it is called when the screen is first loaded,
+    //it initiates the UI controls by calling initComponents() , then calls
+    //fillCustomerList() to populate the List with the customers, then fills the 
+    //details of the current selected Customer by calling fillCustomerDetails
+    // and passing it the Customer object that is returned from calling getCustomerDetails
+    // Which takes the current selected customer in the List as a parameter
+      //The constructor also calls fillCountryList() & fillEventList() to fill the 
+      //country and event drop down lists respectively
+      
     public CustomerJFrame() {
         initComponents();
         fillCustomerList();
@@ -619,17 +656,21 @@ public class CustomerJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+     //When the user selects another Customer from the list, fills its
+    //details in the fields and tables. 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
         // TODO add your handling code here:
         if (jList1.getSelectedValue() != null)
            fillCustomerDetails(getCustomerDetails((String)jList1.getSelectedValue()));
     }//GEN-LAST:event_jList1ValueChanged
 
+    //this is called when the Exit menu is clicked, it exits the application
     private void jMenuExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuExitMouseClicked
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jMenuExitMouseClicked
 
+    //this is called when the Artist menu item is selected from the Manage menu.
     private void jMenuItemArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemArtistActionPerformed
         // TODO add your handling code here:
             ArtistJFrame  myFrame = new  ArtistJFrame ();
@@ -638,6 +679,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemArtistActionPerformed
 
+    //this is called when the Tour menu item is selected from the Manage menu.
     private void jMenuItemTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTourActionPerformed
         // TODO add your handling code here:
                     TourJFrame  myFrame = new   TourJFrame();
@@ -645,7 +687,8 @@ public class CustomerJFrame extends javax.swing.JFrame {
         myFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItemTourActionPerformed
-
+    
+    //this is called when the Event menu item is selected from the Manage menu.
     private void jMenuItemEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEventActionPerformed
         // TODO add your handling code here:
               EventJFrame  myFrame = new   EventJFrame();
@@ -654,6 +697,9 @@ public class CustomerJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemEventActionPerformed
 
+     //this event handler is called when the create button is pressed
+    //it empties the text fields and tables to enter the data of new customer
+    //it also sets the value of process variable to be "add"
     private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
         // TODO add your handling code here:
         this.process = "add";
@@ -694,8 +740,12 @@ public class CustomerJFrame extends javax.swing.JFrame {
          
     }//GEN-LAST:event_jButtonCreateActionPerformed
 
+      //This event handler is called when the Save button is pressed
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
         // TODO add your handling code here:
+        
+          //first it creates a new Customer object and fills it with information
+        //which are entered by the user in the text fields.
         Customer c = new Customer();
          persistence.CustomerDAO dao  = new persistence.CustomerDAO();
          
@@ -712,13 +762,18 @@ public class CustomerJFrame extends javax.swing.JFrame {
          c.setPostcode(this.jTextPostCode.getText());
          c.setId(this.customerID);
          
-         
+          //it testes the process variable, if it is add, it will call insertCustomer method
+         //if it is  edit it will call updateCustomer. In either case, it will pass the
+         //Customer object mentioned abive as a parameter
          String result = "";
          if (this.process.equalsIgnoreCase("add"))
                 result = dao.insertCustomer(c);
           if (this.process.equalsIgnoreCase("edit"))
                 result = dao.updateCustomer(c);
-         
+          
+           //the result variable contains the result of the above operation, if all things
+          //went correctly, then display success message to the user, and disable the text 
+          //fields , enable the create and edit buttons, disable the save and cancel buttons
          if (result.equalsIgnoreCase("0"))
          {
                  javax.swing.JOptionPane.showMessageDialog(null,  "Customer saved successfully",
@@ -748,6 +803,8 @@ public class CustomerJFrame extends javax.swing.JFrame {
          }
          else
          {
+              //if an error happened, display the error message which is obtained from the ErrorMessage
+             //class by passing it the sql error code retruned from the DAO-->oracle DB
              String errorMsg = "An Error occurred: " + new util.ErrorMessages().getMessage(result);
              javax.swing.JOptionPane.showMessageDialog(null, errorMsg, "error", javax.swing.JOptionPane.ERROR_MESSAGE); 
          }
@@ -757,6 +814,8 @@ public class CustomerJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonSaveActionPerformed
 
+      //event handler which is called when Edit button is clicked, it enables
+    //the controls so the use can change the data, and sets the process to be "edit"
     private void jButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditActionPerformed
         // TODO add your handling code here:
           this.process = "edit";
@@ -779,10 +838,15 @@ public class CustomerJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonEditActionPerformed
 
+       //event handler which is called when the cancel button is pressed
+    //it cancels the edit or create operation, undo the changes and 
+    //disable the text fields.
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         // TODO add your handling code here:
         if(process.equalsIgnoreCase("add")){
             jList1.setSelectedIndex(0);
+             //it calls the fillCustomerDetails to fill the information
+             //of the currently selected Customer
             fillCustomerDetails(getCustomerDetails((String)jList1.getSelectedValue()));
         }
         
@@ -808,6 +872,10 @@ public class CustomerJFrame extends javax.swing.JFrame {
          this.jButtonEdit.setEnabled(true);
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
+    //This event handler is called when the Add Booking button is clicked, it enables 
+    //the save & Cancel booking buttons, disable the Add Booking Button and makes the 
+    //Panel1 , which contains the event drop down list, visible, as it is set initiallly
+    //to be invisible
     private void jButtonAddBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddBookingActionPerformed
         // TODO add your handling code here:
          this.jButtonAddBooking.setEnabled(false);
@@ -815,26 +883,39 @@ public class CustomerJFrame extends javax.swing.JFrame {
            this.jButtonCancelBooking.setEnabled(true);
         this.jPanel1.setVisible(true);      
     }//GEN-LAST:event_jButtonAddBookingActionPerformed
-
+    
+    //This event handler is called when the Save Booking Button is clicked
     private void jButtonSaveBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveBookingActionPerformed
         // TODO add your handling code here:
             ArrayList booklist = new ArrayList<Booking>();
+            //obtain the value selected in the event list, split it to get the event id
         String[] arr = this.jComboBoxEvent.getSelectedItem().toString().split(",");
+        //creates event object with the selected event id, create a Booking object with the Event object
+        //add the Booking object to a Booking List
         Event e = new Event(Long.parseLong(arr[0]),null,null,null);
         e.setId(Long.parseLong(arr[0]));
         booklist.add(new Booking(e));
+        //Create Customer object and assign it the Booking List that is created above.
+        //and set the customer ID to be the current selected customer ID in the screen
         Customer c = new Customer();
         c.setBookings(booklist);
         c.setId(this.customerID);
+        //call insertBooking in the BookingDAO passing it the Customer object
         persistence.BookingDAO dao = new persistence.BookingDAO();
         dao.insertBooking(c);
+        //enable the Add Booking button, disable the Save & Cancel Booking Buttons, and hide the
+        //events drop down list again
         this.jButtonAddBooking.setEnabled(true);
         this.jButtonSaveBooking.setEnabled(false);
         this.jButtonCancel.setEnabled(false);
         this.jPanel1.setVisible(false);
+        //refresh the data by calling fillCustomerDetails again.
             fillCustomerDetails(getCustomerDetails((String)jList1.getSelectedValue()));
     }//GEN-LAST:event_jButtonSaveBookingActionPerformed
 
+    //This event handler is invoked when the Cancel Booking button is clicked, it 
+    //enable the Add Booking button, disable the Save & Cancel Booking Buttons,
+    //and hide the events drop down list again
     private void jButtonCancelBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelBookingActionPerformed
         // TODO add your handling code here:
          this.jButtonAddBooking.setEnabled(true);
@@ -845,6 +926,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonCancelBookingActionPerformed
 
+        //this is called when the Venue menu item is selected from the Manage menu.
     private void jMenuItemVenueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVenueActionPerformed
         // TODO add your handling code here:
                VenueJFrame  myFrame = new   VenueJFrame();
@@ -853,6 +935,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemVenueActionPerformed
 
+        //this is called when the Dates menu item is selected from the Manage menu.
     private void jMenuItemDatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDatesActionPerformed
         // TODO add your handling code here:
            DateJFrame  myFrame = new   DateJFrame();
@@ -861,6 +944,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemDatesActionPerformed
 
+        //this is called when the Cancellations menu item is selected from the Manage menu.
     private void jMenuItemCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCancelActionPerformed
         // TODO add your handling code here:
           CancellationJFrame  myFrame = new   CancellationJFrame();

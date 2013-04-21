@@ -4,10 +4,9 @@
  */
 package util;
 
-/**
- *
- * @author snowman
- */
+ //This class generates custom error messages 
+//it contains one method, getMessage, which takes the sql error code
+//as parameter. 
 public class ErrorMessages {
     public String getMessage(String sql){
         String sqlCode = sql.toLowerCase();

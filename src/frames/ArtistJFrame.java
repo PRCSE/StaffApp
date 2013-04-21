@@ -7,30 +7,46 @@ import com.prcse.datamodel.*;
 import java.util.HashMap;
 import java.util.Vector;
 import java.text.SimpleDateFormat;
-/**
- *
- * @author snowman
- */
+ 
 public class ArtistJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form CustomerJFrame
      */
+    //this is the process variable, it is used to know whether the
+    //opearion is create or update, when the save button is clikced.
     String process = "" ;
+    
+     //this is where the id of current customer is saved, in order to be
+    //used in update operation.
     long artistID = 0l;
     private HashMap getArtistDetails(String par){
       
+        //retrive the aritst information by artist name,
+        //the getArtistDetails method in ArtistDAO is called
+        //the method returns HashMap, first item in the HashMap
+        //is the Artist object, second item is Event list, 
+        //and third item in the HashMap is the Tour list
         persistence.ArtistDAO dao  = new persistence.ArtistDAO();
        return dao.getArtistDetails(par);
     }
     private void fillArtistDetails(HashMap par){
+        //This method takes the HashMap as parameter,this HashMap 
+        //is returned by getArtistDetails, and fills the data in the
+        //UI controls in the screen
+        
+        //Get the first element which is the Artist,if it is null return.
         Artist a = (Artist) par.get(0);
         if(a==null)
             return;
+        
+        //Fill the artist information contained in the Artist object, 
+        //in the Text Fields in the screen.
         this.jTextName.setText(a.getName());
         this.jTextDesc.setText(a.getBio());
         this.artistID = a.getId();
-        
+       
+        //fill the Event list in the table
        Vector eventlist = (Vector)par.get(1);
        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         
@@ -46,7 +62,8 @@ public class ArtistJFrame extends javax.swing.JFrame {
          
           javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel(data, colNames);
          this.jTable2.setModel(model);
-         
+        
+         //fill the Tour list in the table
           Vector tourlist = (Vector)par.get(2);
          
          String[] colNames2 = {"Name"};
@@ -61,6 +78,9 @@ public class ArtistJFrame extends javax.swing.JFrame {
          this.jTable3.setModel(model2);  
           
     }
+    
+    //This method use the ArtistDAO to retrieve all the artists and fills the
+    // in the List control at the left side of the screen.
     private void fillArtistList(){
            persistence.ArtistDAO dao  = new persistence.ArtistDAO();
       javax.swing.DefaultListModel model1 = new javax.swing.DefaultListModel();
@@ -71,6 +91,14 @@ public class ArtistJFrame extends javax.swing.JFrame {
       this.jList1.setModel(model1);
       jList1.setSelectedIndex(0);
     }
+    
+    //This is the constructor, it is called when the screen is first loaded,
+    //it initiates the UI controls by calling initComponents() , then calls
+    //fillArtistList() to populate the List with the artists, then fills the 
+    //details of the current selected Artist by calling fillArtistDetails
+    // and passing it the HashMap that is returned from calling getArtistDetails
+    // Which takes the current selected artist in the List as a parameter
+ 
     public ArtistJFrame() {
         initComponents();
         fillArtistList();
@@ -410,11 +438,14 @@ public class ArtistJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //When the user selectes another Artist from the list, fills its
+    //details in the fields and tables. 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
         // TODO add your handling code here:
         fillArtistDetails(getArtistDetails((String)jList1.getSelectedValue()));
     }//GEN-LAST:event_jList1ValueChanged
 
+    //this is called when the Event menu item is selected from the Manage menu.
     private void jMenuItemEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEventActionPerformed
         // TODO add your handling code here:
         EventJFrame  myFrame = new   EventJFrame();
@@ -423,6 +454,7 @@ public class ArtistJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemEventActionPerformed
 
+     //this is called when the Tour menu item is selected from the Manage menu.
     private void jMenuItemTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTourActionPerformed
         // TODO add your handling code here:
         TourJFrame  myFrame = new   TourJFrame();
@@ -431,11 +463,13 @@ public class ArtistJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemTourActionPerformed
 
+       //this is called when the Exit menu is clicked, to exit the application
     private void jMenuExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuExitMouseClicked
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jMenuExitMouseClicked
 
+       //this is called when the Venue menu item is selected from the Manage menu.
     private void jMenuItemVenueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVenueActionPerformed
         // TODO add your handling code here:
             VenueJFrame  myFrame = new   VenueJFrame();
@@ -443,7 +477,9 @@ public class ArtistJFrame extends javax.swing.JFrame {
         myFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItemVenueActionPerformed
-
+    
+    
+       //this is called when the Dates menu item is selected from the Manage menu.
     private void jMenuItemDatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDatesActionPerformed
         // TODO add your handling code here:
           DateJFrame  myFrame = new   DateJFrame();
@@ -452,6 +488,7 @@ public class ArtistJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemDatesActionPerformed
 
+       //this is called when the Cancellation menu item is selected from the Manage menu.
     private void jMenuItemCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCancelActionPerformed
         // TODO add your handling code here:
            CancellationJFrame  myFrame = new   CancellationJFrame();
@@ -460,6 +497,7 @@ public class ArtistJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemCancelActionPerformed
 
+       //this is called when the Customer menu item is selected from the Manage menu.
     private void jMenuItemCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCustomerActionPerformed
         // TODO add your handling code here:
          CustomerJFrame  myFrame = new   CustomerJFrame();
@@ -468,6 +506,9 @@ public class ArtistJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemCustomerActionPerformed
 
+    //this event handler is called when the create button is pressed
+    //it empties the text fields and tables to enter the data of new artist
+    //it also sets the value of process variable to be "add"
     private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
         // TODO add your handling code here:
         // TODO add your handling code here:
@@ -496,20 +537,28 @@ public class ArtistJFrame extends javax.swing.JFrame {
          this.jTable3.setModel(model2); 
     }//GEN-LAST:event_jButtonCreateActionPerformed
 
+    //This event handler is called when the Save button is pressed
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
         // TODO add your handling code here:
          // TODO add your handling code here:
+        //first it creates a new Artist object and fills it with the name and description
+        //which are entered by the user in the text fields.
         Artist a = new Artist(this.artistID,this.jTextName.getText(),jTextDesc.getText(),null,null,null);
          persistence.ArtistDAO dao  = new persistence.ArtistDAO();
       
          
-         
+        //it testes the process variable, if it is add, it will call insertArtist method
+         //if it is is edit it will call updateArtist. In either case, it will pass the
+         //Artist object mentioned abive as a parameter
          String result = "";
          if (this.process.equalsIgnoreCase("add"))
                 result = dao.insertArtist(a);
           if (this.process.equalsIgnoreCase("edit"))
                 result = dao.updateArtist(a);
          
+          //the result variable contains the result of the above operation, if all things
+          //went correctly, then display success message to the user, and disable the text 
+          //fields , enable the create and edit buttons, disable the save and cancel buttons
          if (result.equalsIgnoreCase("0"))
          {
                  javax.swing.JOptionPane.showMessageDialog(null,  "Artist saved successfully",
@@ -530,6 +579,8 @@ public class ArtistJFrame extends javax.swing.JFrame {
          
          }
          else
+             //if an error happened, display the error message which is obtained from the ErrorMessage
+             //class by passing it the sql error code retruned from the DAO-->oracle DB
          {
              String errorMsg = "An Error occurred: " + new util.ErrorMessages().getMessage(result);
              javax.swing.JOptionPane.showMessageDialog(null, errorMsg, "error", javax.swing.JOptionPane.ERROR_MESSAGE); 
@@ -539,7 +590,9 @@ public class ArtistJFrame extends javax.swing.JFrame {
          
         
     }//GEN-LAST:event_jButtonSaveActionPerformed
-
+    //event handler which is called when the cancel button is pressed
+    //it cancels the edit or create operation, undo the changes and 
+    //disable the text fields.
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         // TODO add your handling code here:
             
@@ -548,12 +601,16 @@ public class ArtistJFrame extends javax.swing.JFrame {
          this.jButtonCancel.setEnabled(false);
          this.jButtonEdit.setEnabled(true);
            
+         //it calls the fillArtistDetails to fill the information
+         //of the currently selected Artist
            fillArtistDetails(getArtistDetails((String)jList1.getSelectedValue()));
               this.jTextName.setEditable(false);
         this.jTextDesc.setEditable(false);
         
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
+    //event handler which is called when Edit button is clicked, it enables
+    //the controls so the use can change the data, and sets the process to be "edit"
     private void jButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditActionPerformed
         // TODO add your handling code here:
       

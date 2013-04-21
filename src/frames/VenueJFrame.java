@@ -5,33 +5,52 @@
 package frames;
 import com.prcse.datamodel.*;
 import java.text.SimpleDateFormat;
-/**
- *
- * @author snowman
- */
+ 
 public class VenueJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form CustomerJFrame
      */
     
+    //this is the process variable, it is used to know whether the
+    //opearion is create or update, when the save button is clikced.
     String process = ""; 
+    
+    //this is where the id of current venue is saved, in order to be
+    //used in update operation.
     long venueID = 0l;
+    
+         //retrive the venue information by venue name,
+        //the getVenueDetails method in VenueDAO is called
+        //the method returns Venue object
     private Venue getVenueDetails(String par){
   
         persistence.VenueDAO dao  = new persistence.VenueDAO();
         return dao.getVenueDetails(par);
     }
+    
+    
+     //This method takes the Venue object as parameter,this Venue object 
+        //is returned by getVenueDetails, and fills the data in the
+        //UI controls in the screen
+        
     private void fillVenueDetails(Venue v){
+    
+   //test if the venue is null, exit and do not do anything
         if(v==null)
             return;
+    //filling the text fields with the data from the Venue object
         this.jTextName.setText(v.getName());
         this.jTextAddress1.setText(v.getAddr1());
         this.jTextPostCode.setText(v.getPostcode());  
         this.jTextDesc.setText(v.getDescription());
         this.venueID = v.getId();
-         
+        
+        //SimpleDateFormat is used for formatting dates, in order not to display the time with the date
                 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                
+      //Now fill the table with the events data, events are obtained by calling getEventList()
+          // of the Venue object
          String[] colNames = {"Name" , "Start Time","End Time"};
           String[][] data  = new  String[v.getEventList().size()][3];
          for (int i =0 ; i < v.getEventList().size();i++ ){
@@ -47,6 +66,10 @@ public class VenueJFrame extends javax.swing.JFrame {
           
           
     }
+    
+    
+     //This method use the VenueDAO to retrieve all the Venues and fills
+    // in the List control at the left side of the screen.
     private void fillVenueList(){
            persistence.VenueDAO dao  = new persistence.VenueDAO();
       javax.swing.DefaultListModel model1 = new javax.swing.DefaultListModel();
@@ -57,6 +80,15 @@ public class VenueJFrame extends javax.swing.JFrame {
       this.jList1.setModel(model1);
       jList1.setSelectedIndex(0);
     }
+    
+    
+       //This is the constructor, it is called when the screen is first loaded,
+    //it initiates the UI controls by calling initComponents() , then calls
+    //fillVenueList() to populate the List with the venues, then fills the 
+    //details of the current selected Venue by calling fillVenueDetails
+    // and passing it the Venue object that is returned from calling getVenueDetails
+    // Which takes the current selected venue in the List as a parameter
+       
     public VenueJFrame() {
         initComponents();
         fillVenueList();
@@ -413,11 +445,14 @@ public class VenueJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+       //When the user selects another Venue from the list, fills its
+    //details in the fields and tables.
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
         // TODO add your handling code here:
         fillVenueDetails(getVenueDetails((String)jList1.getSelectedValue()));
     }//GEN-LAST:event_jList1ValueChanged
 
+    //this is called when the Customer menu item is selected from the Manage menu.
     private void jMenuItemCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCustomerActionPerformed
         // TODO add your handling code here:
         CustomerJFrame  myFrame = new   CustomerJFrame();
@@ -426,6 +461,7 @@ public class VenueJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemCustomerActionPerformed
 
+    //this is called when the Dates menu item is selected from the Manage menu.
     private void jMenuItemDatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDatesActionPerformed
         // TODO add your handling code here:
         DateJFrame  myFrame = new   DateJFrame();
@@ -434,6 +470,7 @@ public class VenueJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemDatesActionPerformed
 
+    //this is called when the Cancellations menu item is selected from the Manage menu.
     private void jMenuItemCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCancelActionPerformed
         // TODO add your handling code here:
         CancellationJFrame  myFrame = new   CancellationJFrame();
@@ -442,6 +479,7 @@ public class VenueJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemCancelActionPerformed
 
+    //this is called when the Event menu item is selected from the Manage menu.
     private void jMenuItemEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEventActionPerformed
         // TODO add your handling code here:
         EventJFrame  myFrame = new   EventJFrame();
@@ -450,6 +488,7 @@ public class VenueJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemEventActionPerformed
 
+    //this is called when the Tour menu item is selected from the Manage menu.
     private void jMenuItemTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTourActionPerformed
         // TODO add your handling code here:
         TourJFrame  myFrame = new   TourJFrame();
@@ -458,11 +497,12 @@ public class VenueJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemTourActionPerformed
 
+    //this is called when the Exit menu is clicked, it exits the application
     private void jMenuExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuExitMouseClicked
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jMenuExitMouseClicked
-
+   //this is called when the Artist menu item is selected from the Manage menu.
     private void jMenuItemVenueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVenueActionPerformed
         // TODO add your handling code here:
            ArtistJFrame  myFrame = new   ArtistJFrame();
@@ -471,6 +511,9 @@ public class VenueJFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItemVenueActionPerformed
 
+     //this event handler is called when the create button is pressed
+    //it empties the text fields and tables to enter the data of new venue
+    //it also sets the value of process variable to be "add"
     private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
         // TODO add your handling code here:
          this.process = "add";
@@ -497,6 +540,8 @@ public class VenueJFrame extends javax.swing.JFrame {
           
     }//GEN-LAST:event_jButtonCreateActionPerformed
 
+     //event handler which is called when Edit button is clicked, it enables
+    //the controls so the use can change the data, and sets the process to be "edit"
     private void jButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditActionPerformed
         // TODO add your handling code here:
           this.process = "edit";
@@ -512,13 +557,18 @@ public class VenueJFrame extends javax.swing.JFrame {
          this.jButtonEdit.setEnabled(false);
     }//GEN-LAST:event_jButtonEditActionPerformed
 
+    //event handler which is called when the cancel button is pressed
+    //it cancels the edit or create operation, undo the changes and 
+    //disable the text fields.
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         // TODO add your handling code here:
            this.jButtonCreate.setEnabled(true);
          this.jButtonSave.setEnabled(false);
          this.jButtonCancel.setEnabled(false);
          this.jButtonEdit.setEnabled(true);
-           
+         
+        //it calls the  fillVenueDetails to fill the information
+             //of the currently selected Venue
            fillVenueDetails(getVenueDetails((String)jList1.getSelectedValue()));
            
            this.jTextName.setEditable(false);
@@ -527,10 +577,11 @@ public class VenueJFrame extends javax.swing.JFrame {
         this.jTextPostCode.setEditable(false); 
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
+    //This event handler is called when the Save button is pressed
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
         // TODO add your handling code here:
-           // TODO add your handling code here:
-         // TODO add your handling code here:
+        //first it creates a new Venue object and fills it with information
+        //which are entered by the user in the text fields.
         Venue v = new  Venue(this.venueID,this.jTextName.getText());
          persistence.VenueDAO dao  = new persistence.VenueDAO();
          
@@ -542,11 +593,18 @@ public class VenueJFrame extends javax.swing.JFrame {
          
          
          String result = "";
+           //it testes the process variable, if it is add, it will call insertVenue method
+         //if it is  edit it will call updateVenue. In either case, it will pass the
+         //Venue object mentioned abive as a parameter
          if (this.process.equalsIgnoreCase("add"))
                 result = dao.insertVenue(v);
           if (this.process.equalsIgnoreCase("edit"))
                 result = dao.updateVenue(v);
-         
+        
+          
+           //the result variable contains the result of the above operation, if all things
+          //went correctly, then display success message to the user, and disable the text 
+          //fields , enable the create and edit buttons, disable the save and cancel buttons
          if (result.equalsIgnoreCase("0"))
          {
                  javax.swing.JOptionPane.showMessageDialog(null,  "Venue saved successfully",
@@ -570,6 +628,8 @@ public class VenueJFrame extends javax.swing.JFrame {
          }
          else
          {
+             //if an error happened, display the error message which is obtained from the ErrorMessage
+             //class by passing it the sql error code retruned from the DAO-->oracle DB
              String errorMsg = "An Error occurred: " + new util.ErrorMessages().getMessage(result);
              javax.swing.JOptionPane.showMessageDialog(null, errorMsg, "error", javax.swing.JOptionPane.ERROR_MESSAGE); 
          }
