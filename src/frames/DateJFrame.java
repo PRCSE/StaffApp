@@ -99,14 +99,14 @@ public class DateJFrame extends javax.swing.JFrame {
         jButtonCreateBooking = new javax.swing.JButton();
         jButtonSaveBooking = new javax.swing.JButton();
         jButtonCancel = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenuCustomers = new javax.swing.JMenu();
-        jMenuArtist = new javax.swing.JMenu();
-        jMenuVenue = new javax.swing.JMenu();
-        jMenuDate = new javax.swing.JMenu();
-        jMenuCancellation = new javax.swing.JMenu();
-        jMenuEvents = new javax.swing.JMenu();
-        jMenuTour = new javax.swing.JMenu();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenuManage1 = new javax.swing.JMenu();
+        jMenuItemCustomer1 = new javax.swing.JMenuItem();
+        jMenuItemVenue = new javax.swing.JMenuItem();
+        jMenuItemDates = new javax.swing.JMenuItem();
+        jMenuItemCancel = new javax.swing.JMenuItem();
+        jMenuItemEvent = new javax.swing.JMenuItem();
+        jMenuItemTour = new javax.swing.JMenuItem();
         jMenuExit = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -248,7 +248,7 @@ public class DateJFrame extends javax.swing.JFrame {
     });
 
     jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-    jLabel6.setForeground(new java.awt.Color(102, 0, 102));
+    jLabel6.setForeground(new java.awt.Color(0, 0, 102));
     jLabel6.setText("Manage Dates");
     jLabel6.setToolTipText("");
 
@@ -308,61 +308,58 @@ public class DateJFrame extends javax.swing.JFrame {
         }
     });
 
-    jMenuCustomers.setText("Customers");
-    jMenuCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            jMenuCustomersMouseClicked(evt);
-        }
-    });
-    jMenuBar1.add(jMenuCustomers);
+    jMenuManage1.setText("Manage");
 
-    jMenuArtist.setText("Artists");
-    jMenuArtist.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            jMenuArtistMouseClicked(evt);
+    jMenuItemCustomer1.setText("Customers");
+    jMenuItemCustomer1.setToolTipText("");
+    jMenuItemCustomer1.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jMenuItemCustomer1ActionPerformed(evt);
         }
     });
-    jMenuBar1.add(jMenuArtist);
+    jMenuManage1.add(jMenuItemCustomer1);
 
-    jMenuVenue.setText("Venue");
-    jMenuVenue.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            jMenuVenueMouseClicked(evt);
+    jMenuItemVenue.setText("Artists");
+    jMenuItemVenue.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jMenuItemVenueActionPerformed(evt);
         }
     });
-    jMenuBar1.add(jMenuVenue);
+    jMenuManage1.add(jMenuItemVenue);
 
-    jMenuDate.setText("Dates");
-    jMenuDate.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            jMenuDateMouseClicked(evt);
+    jMenuItemDates.setText("Venue");
+    jMenuItemDates.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jMenuItemDatesActionPerformed(evt);
         }
     });
-    jMenuBar1.add(jMenuDate);
+    jMenuManage1.add(jMenuItemDates);
 
-    jMenuCancellation.setText("Cancellations");
-    jMenuCancellation.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            jMenuCancellationMouseClicked(evt);
+    jMenuItemCancel.setText("Cancellations");
+    jMenuItemCancel.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jMenuItemCancelActionPerformed(evt);
         }
     });
-    jMenuBar1.add(jMenuCancellation);
+    jMenuManage1.add(jMenuItemCancel);
 
-    jMenuEvents.setText("Events");
-    jMenuEvents.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            jMenuEventsMouseClicked(evt);
+    jMenuItemEvent.setText("Events");
+    jMenuItemEvent.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jMenuItemEventActionPerformed(evt);
         }
     });
-    jMenuBar1.add(jMenuEvents);
+    jMenuManage1.add(jMenuItemEvent);
 
-    jMenuTour.setText("Tours");
-    jMenuTour.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            jMenuTourMouseClicked(evt);
+    jMenuItemTour.setText("Tours");
+    jMenuItemTour.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jMenuItemTourActionPerformed(evt);
         }
     });
-    jMenuBar1.add(jMenuTour);
+    jMenuManage1.add(jMenuItemTour);
+
+    jMenuBar2.add(jMenuManage1);
 
     jMenuExit.setText("Exit");
     jMenuExit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -370,9 +367,9 @@ public class DateJFrame extends javax.swing.JFrame {
             jMenuExitMouseClicked(evt);
         }
     });
-    jMenuBar1.add(jMenuExit);
+    jMenuBar2.add(jMenuExit);
 
-    setJMenuBar(jMenuBar1);
+    setJMenuBar(jMenuBar2);
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -501,6 +498,66 @@ public class DateJFrame extends javax.swing.JFrame {
       
     }
     
+       //this is called when the Customer menu item is selected from the Manage menu.
+    private void jMenuItemCustomer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCustomer1ActionPerformed
+        // TODO add your handling code here:
+        CustomerJFrame  myFrame = new   CustomerJFrame();
+        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
+        myFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItemCustomer1ActionPerformed
+
+       //this is called when the Venue menu item is selected from the Manage menu.
+    private void jMenuItemVenueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVenueActionPerformed
+        // TODO add your handling code here:
+        ArtistJFrame  myFrame = new   ArtistJFrame();
+        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
+        myFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItemVenueActionPerformed
+
+       //this is called when the Dates menu item is selected from the Manage menu.
+    private void jMenuItemDatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDatesActionPerformed
+        // TODO add your handling code here:
+        VenueJFrame  myFrame = new   VenueJFrame();
+        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
+        myFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItemDatesActionPerformed
+
+       //this is called when the Cancellations menu item is selected from the Manage menu.
+    private void jMenuItemCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCancelActionPerformed
+        // TODO add your handling code here:
+        CancellationJFrame  myFrame = new   CancellationJFrame();
+        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
+        myFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItemCancelActionPerformed
+
+       //this is called when the Event menu item is selected from the Manage menu.
+    private void jMenuItemEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEventActionPerformed
+        // TODO add your handling code here:
+        EventJFrame  myFrame = new   EventJFrame();
+        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
+        myFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItemEventActionPerformed
+
+       //this is called when the Tour menu item is selected from the Manage menu.
+    private void jMenuItemTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTourActionPerformed
+        // TODO add your handling code here:
+        TourJFrame  myFrame = new   TourJFrame();
+        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
+        myFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItemTourActionPerformed
+
+       //this is called when the Event Exit item is selected  to exit the application
+    private void jMenuExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuExitMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jMenuExitMouseClicked
+
     //This event handler is called when the Create Booking button is clicked, it enables 
     //the save & Cancel booking buttons, disable the Add Booking Button and makes the 
     //Panel2 , which contains the customer drop down list, visible, as it is set initiallly
@@ -576,68 +633,6 @@ public class DateJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
-    private void jMenuCustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCustomersMouseClicked
-        // TODO add your handling code here:
-        CustomerJFrame  myFrame = new  CustomerJFrame();
-        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
-        myFrame.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenuCustomersMouseClicked
-
-    private void jMenuArtistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuArtistMouseClicked
-        // TODO add your handling code here:
-        ArtistJFrame  myFrame = new  ArtistJFrame();
-        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
-        myFrame.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenuArtistMouseClicked
-
-    private void jMenuVenueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuVenueMouseClicked
-        // TODO add your handling code here:
-        VenueJFrame  myFrame = new  VenueJFrame();
-        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
-        myFrame.setVisible(true);
-        this.dispose();
-
-    }//GEN-LAST:event_jMenuVenueMouseClicked
-
-    private void jMenuCancellationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCancellationMouseClicked
-        // TODO add your handling code here:
-        CancellationJFrame  myFrame = new  CancellationJFrame();
-        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
-        myFrame.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenuCancellationMouseClicked
-
-    private void jMenuEventsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuEventsMouseClicked
-        // TODO add your handling code here:
-        EventJFrame  myFrame = new  EventJFrame();
-        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
-        myFrame.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenuEventsMouseClicked
-
-    private void jMenuTourMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuTourMouseClicked
-        // TODO add your handling code here:
-        TourJFrame  myFrame = new  TourJFrame();
-        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
-        myFrame.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenuTourMouseClicked
-
-    private void jMenuExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuExitMouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_jMenuExitMouseClicked
-
-    private void jMenuDateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuDateMouseClicked
-        // TODO add your handling code here:
-        DateJFrame  myFrame = new  DateJFrame();
-        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
-        myFrame.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenuDateMouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -689,15 +684,18 @@ public class DateJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JMenu jMenuArtist;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenu jMenuCancellation;
-    private javax.swing.JMenu jMenuCustomers;
-    private javax.swing.JMenu jMenuDate;
-    private javax.swing.JMenu jMenuEvents;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenu jMenuExit;
-    private javax.swing.JMenu jMenuTour;
-    private javax.swing.JMenu jMenuVenue;
+    private javax.swing.JMenuItem jMenuItemCancel;
+    private javax.swing.JMenuItem jMenuItemCustomer;
+    private javax.swing.JMenuItem jMenuItemCustomer1;
+    private javax.swing.JMenuItem jMenuItemDates;
+    private javax.swing.JMenuItem jMenuItemEvent;
+    private javax.swing.JMenuItem jMenuItemTour;
+    private javax.swing.JMenuItem jMenuItemVenue;
+    private javax.swing.JMenu jMenuManage;
+    private javax.swing.JMenu jMenuManage1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

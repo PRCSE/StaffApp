@@ -270,7 +270,7 @@ public class VenueDAO {
      //this method takes Venue object as parameter, and inserts a new row in the
      //seating_plan table with venue_id contained in this object
      public String insertSeatingPlan(Venue v){
-        // System.out.println("insert seating plan....");
+         //System.out.println("insert seating plan....");
            String result = "0";
          Connection con = null;
          //construct sql
@@ -296,7 +296,7 @@ public class VenueDAO {
            // System.out.println("after insert....");
          }
          catch (SQLException ex){
-            // System.out.println(ex.getMessage());
+             //System.out.println(ex.getMessage());
              ex.printStackTrace();
              result = ex.getMessage();
          }
