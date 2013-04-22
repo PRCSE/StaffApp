@@ -149,7 +149,7 @@ public class EventDAO {
               sql+= "between to_date(start_time,'DD-MM-YY') and to_date(end_time,'DD-MM-YY')";
                 
               
-            System.out.println(sql);
+            //System.out.println(sql);
              //create the PreparedStatement from the Connection object by calling prepareCall
             //method, passing it the sql that is constructed using the supplied parameters
             st = con.prepareCall(sql);
@@ -423,7 +423,7 @@ public class EventDAO {
              
              //loop through the result set and save the data in the datamodel objects
              while (rs.next()){
-                 System.out.println("inside while....");
+                 //System.out.println("inside while....");
                  list.add(rs.getString("id") + "," + rs.getString("NAME"));
                 
              }
@@ -490,7 +490,7 @@ public class EventDAO {
              
               //loop through the result set and save the data in the datamodel objects
              while (rs.next()){
-                 System.out.println("inside while....");
+                 //System.out.println("inside while....");
                  list.add(rs.getString("id") + "," + rs.getString("NAME"));
                 
              }
@@ -556,7 +556,7 @@ public class EventDAO {
              
              //loop through the result set and save the data in the datamodel objects
              while (rs.next()){
-                 System.out.println("inside while....");
+                 //System.out.println("inside while....");
                  list.add(rs.getString("id") + "," + rs.getString("NAME"));
                 
              }

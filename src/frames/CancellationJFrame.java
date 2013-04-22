@@ -76,23 +76,20 @@ public class CancellationJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenuManage1 = new javax.swing.JMenu();
-        jMenuItemCustomer1 = new javax.swing.JMenuItem();
-        jMenuItemVenue = new javax.swing.JMenuItem();
-        jMenuItemDates = new javax.swing.JMenuItem();
-        jMenuItemDate = new javax.swing.JMenuItem();
-        jMenuItemEvent = new javax.swing.JMenuItem();
-        jMenuItemTour = new javax.swing.JMenuItem();
+        jLabel2 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenuCustomers = new javax.swing.JMenu();
+        jMenuArtist = new javax.swing.JMenu();
+        jMenuVenue = new javax.swing.JMenu();
+        jMenuDate = new javax.swing.JMenu();
+        jMenuCancellation = new javax.swing.JMenu();
+        jMenuEvents = new javax.swing.JMenu();
+        jMenuTour = new javax.swing.JMenu();
         jMenuExit = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel1.setText("Cancellations");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -107,58 +104,66 @@ public class CancellationJFrame extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jMenuManage1.setText("Manage");
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel2.setText("Cancellations");
+        jLabel2.setToolTipText("");
 
-        jMenuItemCustomer1.setText("Customers");
-        jMenuItemCustomer1.setToolTipText("");
-        jMenuItemCustomer1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCustomer1ActionPerformed(evt);
+        jMenuCustomers.setText("Customers");
+        jMenuCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuCustomersMouseClicked(evt);
             }
         });
-        jMenuManage1.add(jMenuItemCustomer1);
+        jMenuBar1.add(jMenuCustomers);
 
-        jMenuItemVenue.setText("Artists");
-        jMenuItemVenue.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemVenueActionPerformed(evt);
+        jMenuArtist.setText("Artists");
+        jMenuArtist.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuArtistMouseClicked(evt);
             }
         });
-        jMenuManage1.add(jMenuItemVenue);
+        jMenuBar1.add(jMenuArtist);
 
-        jMenuItemDates.setText("Venue");
-        jMenuItemDates.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemDatesActionPerformed(evt);
+        jMenuVenue.setText("Venue");
+        jMenuVenue.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuVenueMouseClicked(evt);
             }
         });
-        jMenuManage1.add(jMenuItemDates);
+        jMenuBar1.add(jMenuVenue);
 
-        jMenuItemDate.setText("Dates");
-        jMenuItemDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemDateActionPerformed(evt);
+        jMenuDate.setText("Dates");
+        jMenuDate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuDateMouseClicked(evt);
             }
         });
-        jMenuManage1.add(jMenuItemDate);
+        jMenuBar1.add(jMenuDate);
 
-        jMenuItemEvent.setText("Events");
-        jMenuItemEvent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemEventActionPerformed(evt);
+        jMenuCancellation.setText("Cancellations");
+        jMenuCancellation.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuCancellationMouseClicked(evt);
             }
         });
-        jMenuManage1.add(jMenuItemEvent);
+        jMenuBar1.add(jMenuCancellation);
 
-        jMenuItemTour.setText("Tours");
-        jMenuItemTour.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemTourActionPerformed(evt);
+        jMenuEvents.setText("Events");
+        jMenuEvents.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuEventsMouseClicked(evt);
             }
         });
-        jMenuManage1.add(jMenuItemTour);
+        jMenuBar1.add(jMenuEvents);
 
-        jMenuBar2.add(jMenuManage1);
+        jMenuTour.setText("Tours");
+        jMenuTour.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuTourMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenuTour);
 
         jMenuExit.setText("Exit");
         jMenuExit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -166,95 +171,99 @@ public class CancellationJFrame extends javax.swing.JFrame {
                 jMenuExitMouseClicked(evt);
             }
         });
-        jMenuBar2.add(jMenuExit);
+        jMenuBar1.add(jMenuExit);
 
-        setJMenuBar(jMenuBar2);
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 814, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 832, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(201, 201, 201)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
+                .addGap(6, 6, 6)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
+
+        jLabel2.getAccessibleContext().setAccessibleName("Cancellations");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //this is called when the Customer menu item is selected from the Manage menu.
-    private void jMenuItemCustomer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCustomer1ActionPerformed
+    private void jMenuCustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCustomersMouseClicked
         // TODO add your handling code here:
-        CustomerJFrame  myFrame = new   CustomerJFrame();
+        CustomerJFrame  myFrame = new  CustomerJFrame();
         myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
         myFrame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jMenuItemCustomer1ActionPerformed
+    }//GEN-LAST:event_jMenuCustomersMouseClicked
 
-    //this is called when the Artist menu item is selected from the Manage menu.
-    private void jMenuItemVenueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVenueActionPerformed
+    private void jMenuArtistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuArtistMouseClicked
         // TODO add your handling code here:
-        ArtistJFrame  myFrame = new   ArtistJFrame();
+        ArtistJFrame  myFrame = new  ArtistJFrame();
         myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
         myFrame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jMenuItemVenueActionPerformed
+    }//GEN-LAST:event_jMenuArtistMouseClicked
 
-     //this is called when the Venue menu item is selected from the Manage menu.
-    private void jMenuItemDatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDatesActionPerformed
+    private void jMenuVenueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuVenueMouseClicked
         // TODO add your handling code here:
-        VenueJFrame  myFrame = new   VenueJFrame();
+        VenueJFrame  myFrame = new  VenueJFrame();
         myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
         myFrame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jMenuItemDatesActionPerformed
 
-    //this is called when the Dates menu item is selected from the Manage menu.
-    private void jMenuItemDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDateActionPerformed
+    }//GEN-LAST:event_jMenuVenueMouseClicked
+
+    private void jMenuDateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuDateMouseClicked
         // TODO add your handling code here:
-        DateJFrame  myFrame = new   DateJFrame();
+        DateJFrame  myFrame = new  DateJFrame();
         myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
         myFrame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jMenuItemDateActionPerformed
+    }//GEN-LAST:event_jMenuDateMouseClicked
 
-    //this is called when the Event menu item is selected from the Manage menu.
-    private void jMenuItemEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEventActionPerformed
+    private void jMenuEventsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuEventsMouseClicked
         // TODO add your handling code here:
-        EventJFrame  myFrame = new   EventJFrame();
+        EventJFrame  myFrame = new  EventJFrame();
         myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
         myFrame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jMenuItemEventActionPerformed
+    }//GEN-LAST:event_jMenuEventsMouseClicked
 
-    //this is called when the Tour menu item is selected from the Manage menu.
-    private void jMenuItemTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTourActionPerformed
+    private void jMenuTourMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuTourMouseClicked
         // TODO add your handling code here:
-        TourJFrame  myFrame = new   TourJFrame();
+        TourJFrame  myFrame = new  TourJFrame();
         myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
         myFrame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jMenuItemTourActionPerformed
+    }//GEN-LAST:event_jMenuTourMouseClicked
 
-    //this is called when the Exit menu is clicked to exit the application
     private void jMenuExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuExitMouseClicked
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jMenuExitMouseClicked
+
+    private void jMenuCancellationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCancellationMouseClicked
+        // TODO add your handling code here:
+        CancellationJFrame  myFrame = new  CancellationJFrame();
+        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
+        myFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuCancellationMouseClicked
 
     /**
      * @param args the command line arguments
@@ -291,16 +300,16 @@ public class CancellationJFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenuArtist;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuCancellation;
+    private javax.swing.JMenu jMenuCustomers;
+    private javax.swing.JMenu jMenuDate;
+    private javax.swing.JMenu jMenuEvents;
     private javax.swing.JMenu jMenuExit;
-    private javax.swing.JMenuItem jMenuItemCustomer1;
-    private javax.swing.JMenuItem jMenuItemDate;
-    private javax.swing.JMenuItem jMenuItemDates;
-    private javax.swing.JMenuItem jMenuItemEvent;
-    private javax.swing.JMenuItem jMenuItemTour;
-    private javax.swing.JMenuItem jMenuItemVenue;
-    private javax.swing.JMenu jMenuManage1;
+    private javax.swing.JMenu jMenuTour;
+    private javax.swing.JMenu jMenuVenue;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

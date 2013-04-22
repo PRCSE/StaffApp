@@ -186,13 +186,13 @@ public class CustomerJFrame extends javax.swing.JFrame {
         jButtonSaveBooking = new javax.swing.JButton();
         jButtonCancelBooking = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenuManage = new javax.swing.JMenu();
-        jMenuItemArtist = new javax.swing.JMenuItem();
-        jMenuItemVenue = new javax.swing.JMenuItem();
-        jMenuItemDates = new javax.swing.JMenuItem();
-        jMenuItemCancel = new javax.swing.JMenuItem();
-        jMenuItemEvent = new javax.swing.JMenuItem();
-        jMenuItemTour = new javax.swing.JMenuItem();
+        jMenuCustomers = new javax.swing.JMenu();
+        jMenuArtist = new javax.swing.JMenu();
+        jMenuVenue = new javax.swing.JMenu();
+        jMenuDate = new javax.swing.JMenu();
+        jMenuCancellation = new javax.swing.JMenu();
+        jMenuEvents = new javax.swing.JMenu();
+        jMenuTour = new javax.swing.JMenu();
         jMenuExit = new javax.swing.JMenu();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -464,7 +464,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
         );
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel2.setForeground(new java.awt.Color(102, 0, 102));
         jLabel2.setText("Manage Customers");
         jLabel2.setToolTipText("");
 
@@ -484,7 +484,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBoxEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -513,57 +513,61 @@ public class CustomerJFrame extends javax.swing.JFrame {
             }
         });
 
-        jMenuManage.setText("Manage");
-
-        jMenuItemArtist.setText("Artists");
-        jMenuItemArtist.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemArtistActionPerformed(evt);
+        jMenuCustomers.setText("Customers");
+        jMenuCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuCustomersMouseClicked(evt);
             }
         });
-        jMenuManage.add(jMenuItemArtist);
+        jMenuBar1.add(jMenuCustomers);
 
-        jMenuItemVenue.setText("Venue");
-        jMenuItemVenue.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemVenueActionPerformed(evt);
+        jMenuArtist.setText("Artists");
+        jMenuArtist.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuArtistMouseClicked(evt);
             }
         });
-        jMenuManage.add(jMenuItemVenue);
+        jMenuBar1.add(jMenuArtist);
 
-        jMenuItemDates.setText("Dates");
-        jMenuItemDates.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemDatesActionPerformed(evt);
+        jMenuVenue.setText("Venue");
+        jMenuVenue.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuVenueMouseClicked(evt);
             }
         });
-        jMenuManage.add(jMenuItemDates);
+        jMenuBar1.add(jMenuVenue);
 
-        jMenuItemCancel.setText("Cancellations");
-        jMenuItemCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCancelActionPerformed(evt);
+        jMenuDate.setText("Dates");
+        jMenuDate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuDateMouseClicked(evt);
             }
         });
-        jMenuManage.add(jMenuItemCancel);
+        jMenuBar1.add(jMenuDate);
 
-        jMenuItemEvent.setText("Events");
-        jMenuItemEvent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemEventActionPerformed(evt);
+        jMenuCancellation.setText("Cancellations");
+        jMenuCancellation.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuCancellationMouseClicked(evt);
             }
         });
-        jMenuManage.add(jMenuItemEvent);
+        jMenuBar1.add(jMenuCancellation);
 
-        jMenuItemTour.setText("Tours");
-        jMenuItemTour.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemTourActionPerformed(evt);
+        jMenuEvents.setText("Events");
+        jMenuEvents.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuEventsMouseClicked(evt);
             }
         });
-        jMenuManage.add(jMenuItemTour);
+        jMenuBar1.add(jMenuEvents);
 
-        jMenuBar1.add(jMenuManage);
+        jMenuTour.setText("Tours");
+        jMenuTour.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuTourMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenuTour);
 
         jMenuExit.setText("Exit");
         jMenuExit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -582,65 +586,59 @@ public class CustomerJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButtonSave)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButtonCancel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButtonCreate)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButtonEdit))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel13)
-                                        .addGap(48, 48, 48)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jButtonAddBooking)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jButtonSaveBooking)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jButtonCancelBooking))
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
-                                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                                .addContainerGap(49, Short.MAX_VALUE))
+                                .addComponent(jButtonSave)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonCancel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonCreate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonEdit))
+                            .addComponent(jLabel13)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(3, 3, 3)
-                                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 56, Short.MAX_VALUE))))))
+                                .addComponent(jButtonAddBooking)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonSaveBooking)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonCancelBooking))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(98, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 56, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonSave)
                             .addComponent(jButtonCancel)
                             .addComponent(jButtonCreate)
-                            .addComponent(jButtonEdit))
+                            .addComponent(jButtonEdit)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel13)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -664,39 +662,7 @@ public class CustomerJFrame extends javax.swing.JFrame {
            fillCustomerDetails(getCustomerDetails((String)jList1.getSelectedValue()));
     }//GEN-LAST:event_jList1ValueChanged
 
-    //this is called when the Exit menu is clicked, it exits the application
-    private void jMenuExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuExitMouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_jMenuExitMouseClicked
-
-    //this is called when the Artist menu item is selected from the Manage menu.
-    private void jMenuItemArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemArtistActionPerformed
-        // TODO add your handling code here:
-            ArtistJFrame  myFrame = new  ArtistJFrame ();
-        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
-        myFrame.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenuItemArtistActionPerformed
-
-    //this is called when the Tour menu item is selected from the Manage menu.
-    private void jMenuItemTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTourActionPerformed
-        // TODO add your handling code here:
-                    TourJFrame  myFrame = new   TourJFrame();
-        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
-        myFrame.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenuItemTourActionPerformed
-    
-    //this is called when the Event menu item is selected from the Manage menu.
-    private void jMenuItemEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEventActionPerformed
-        // TODO add your handling code here:
-              EventJFrame  myFrame = new   EventJFrame();
-        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
-        myFrame.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenuItemEventActionPerformed
-
+   
      //this event handler is called when the create button is pressed
     //it empties the text fields and tables to enter the data of new customer
     //it also sets the value of process variable to be "add"
@@ -926,32 +892,67 @@ public class CustomerJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonCancelBookingActionPerformed
 
-        //this is called when the Venue menu item is selected from the Manage menu.
-    private void jMenuItemVenueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVenueActionPerformed
+    private void jMenuArtistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuArtistMouseClicked
         // TODO add your handling code here:
-               VenueJFrame  myFrame = new   VenueJFrame();
+        ArtistJFrame  myFrame = new  ArtistJFrame();
         myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
         myFrame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jMenuItemVenueActionPerformed
+    }//GEN-LAST:event_jMenuArtistMouseClicked
 
-        //this is called when the Dates menu item is selected from the Manage menu.
-    private void jMenuItemDatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDatesActionPerformed
+    private void jMenuVenueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuVenueMouseClicked
         // TODO add your handling code here:
-           DateJFrame  myFrame = new   DateJFrame();
+        VenueJFrame  myFrame = new  VenueJFrame();
         myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
         myFrame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jMenuItemDatesActionPerformed
 
-        //this is called when the Cancellations menu item is selected from the Manage menu.
-    private void jMenuItemCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCancelActionPerformed
+    }//GEN-LAST:event_jMenuVenueMouseClicked
+
+    private void jMenuDateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuDateMouseClicked
         // TODO add your handling code here:
-          CancellationJFrame  myFrame = new   CancellationJFrame();
+        DateJFrame  myFrame = new  DateJFrame();
         myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
         myFrame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jMenuItemCancelActionPerformed
+    }//GEN-LAST:event_jMenuDateMouseClicked
+
+    private void jMenuCancellationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCancellationMouseClicked
+        // TODO add your handling code here:
+        CancellationJFrame  myFrame = new  CancellationJFrame();
+        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
+        myFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuCancellationMouseClicked
+
+    private void jMenuEventsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuEventsMouseClicked
+        // TODO add your handling code here:
+        EventJFrame  myFrame = new  EventJFrame();
+        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
+        myFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuEventsMouseClicked
+
+    private void jMenuTourMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuTourMouseClicked
+        // TODO add your handling code here:
+        TourJFrame  myFrame = new  TourJFrame();
+        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
+        myFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuTourMouseClicked
+
+    private void jMenuExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuExitMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jMenuExitMouseClicked
+
+    private void jMenuCustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCustomersMouseClicked
+        // TODO add your handling code here:
+        CustomerJFrame  myFrame = new  CustomerJFrame();
+        myFrame.setExtendedState(myFrame.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
+        myFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuCustomersMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1014,15 +1015,15 @@ public class CustomerJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JList jList1;
+    private javax.swing.JMenu jMenuArtist;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuCancellation;
+    private javax.swing.JMenu jMenuCustomers;
+    private javax.swing.JMenu jMenuDate;
+    private javax.swing.JMenu jMenuEvents;
     private javax.swing.JMenu jMenuExit;
-    private javax.swing.JMenuItem jMenuItemArtist;
-    private javax.swing.JMenuItem jMenuItemCancel;
-    private javax.swing.JMenuItem jMenuItemDates;
-    private javax.swing.JMenuItem jMenuItemEvent;
-    private javax.swing.JMenuItem jMenuItemTour;
-    private javax.swing.JMenuItem jMenuItemVenue;
-    private javax.swing.JMenu jMenuManage;
+    private javax.swing.JMenu jMenuTour;
+    private javax.swing.JMenu jMenuVenue;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;

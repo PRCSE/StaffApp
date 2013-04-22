@@ -177,7 +177,7 @@ public class ArtistDAO {
              
              //loop through the result set and save the data in the datamodel objects
              while (rs.next()){
-                 System.out.println("inside while....");
+                 //System.out.println("inside while....");
                  list.add(rs.getString("NAME"));
                 
              }

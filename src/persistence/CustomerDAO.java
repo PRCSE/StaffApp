@@ -40,7 +40,7 @@ public class CustomerDAO {
              rs = st.executeQuery();
               //loop through the result set and save the data in the datamodel objects
              while (rs.next()){
-                 System.out.println("inside while....");
+                 //System.out.println("inside while....");
                 
                  result = new Customer();
                  result.setTitle(rs.getString("TITLE"));
@@ -134,7 +134,7 @@ public class CustomerDAO {
              rs = st.executeQuery();
                 //loop through the result set and save the data in the datamodel objects
              while (rs.next()){
-                 System.out.println("inside while....");
+                 //System.out.println("inside while....");
                  list.add(rs.getString("TITLE") + " " + rs.getString("FORENAME") + " " + rs.getString("SURNAME"));
                 
              }
@@ -198,7 +198,7 @@ public class CustomerDAO {
              rs = st.executeQuery();
               //loop through the result set and save the data in the datamodel objects
              while (rs.next()){
-                 System.out.println("inside while....");
+                 //System.out.println("inside while....");
                  list.add(rs.getString("Country"));
                 
              }
@@ -262,7 +262,7 @@ public class CustomerDAO {
              rs = st.executeQuery();
                //loop through the result set and save the data in the datamodel objects
              while (rs.next()){
-                 System.out.println("inside while....");
+                 //System.out.println("inside while....");
                  list.add(rs.getString("id") + "," + rs.getString("name"));
                  
                 

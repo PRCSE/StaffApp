@@ -156,7 +156,7 @@ public class VenueDAO {
              
              //loop through the result set and save the data in the datamodel objects
              while (rs.next()){
-                 System.out.println("inside while....");
+                 //System.out.println("inside while....");
                  list.add(rs.getString("NAME"));
                 
              }
@@ -224,7 +224,7 @@ public class VenueDAO {
              
              //loop through the result set and save the data in the datamodel objects
              while (rs.next()){
-                 System.out.println("inside while in getlast seating plan");
+                 //System.out.println("inside while in getlast seating plan");
                   result = new SeatingPlan(rs.getLong(1),null,null);
                   
                  
@@ -270,7 +270,7 @@ public class VenueDAO {
      //this method takes Venue object as parameter, and inserts a new row in the
      //seating_plan table with venue_id contained in this object
      public String insertSeatingPlan(Venue v){
-         System.out.println("insert seating plan....");
+        // System.out.println("insert seating plan....");
            String result = "0";
          Connection con = null;
          //construct sql
@@ -293,10 +293,10 @@ public class VenueDAO {
            
             //exceuting the insert or update operation       
             ps.executeUpdate(); 
-            System.out.println("after insert....");
+           // System.out.println("after insert....");
          }
          catch (SQLException ex){
-             System.out.println(ex.getMessage());
+            // System.out.println(ex.getMessage());
              ex.printStackTrace();
              result = ex.getMessage();
          }

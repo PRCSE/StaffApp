@@ -114,7 +114,7 @@ public class TourDAO {
              
              //loop through the result set and save the data in the datamodel objects
              while (rs.next()){
-                System.out.println("inside while in getTour Details...");     
+                //System.out.println("inside while in getTour Details...");     
                  Artist a = new Artist(rs.getLong("aid"),rs.getString("aname"),null,null,null,null);
                  
                  result = new Tour(rs.getLong("id"),rs.getString("name"),a);
@@ -230,7 +230,7 @@ public class TourDAO {
              
              //loop through the result set and save the data in the datamodel objects
              while (rs.next()){
-                 System.out.println("inside while....");
+                 //System.out.println("inside while....");
                  list.add(rs.getString("NAME"));
                 
              }
