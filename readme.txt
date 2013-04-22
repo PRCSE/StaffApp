@@ -1,5 +1,6 @@
 To Run:
 1 - Double Click StaffApp.jar
+(NetBeans 7.3)
 
 Bugs:
 1. Freezing if no DB Connection
